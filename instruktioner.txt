@@ -1,0 +1,107 @@
+Ämnesövergripande projektarbete - vecka 45-51
+Projektets ramar
+Ni ska under 7 veckor utveckla en interaktiv webbapplikation som kombinerar kunskaper från tre kurser:
+Gränssnittsdesign - användarcentrerad design och visuell utformning
+Webbutveckling 2 - interaktivitet med JavaScript och responsiv frontend samt fokus på tillgänglighet
+Webbserverprogrammering 1 - Flask-backend med databas
+Exempel på projektidéer
+Todo-lista med användarinloggning
+Digitalt träningsschema med loggning
+Online micro casino (tärning/kortspel)
+Recept-databas med betyg och kommentarer ✅
+Bokningssystem för resurser
+Quiz-app med highscore
+Krav: Applikationen ska ha inloggning, databas (SQLite) och minst 3-4 olika vyer/sidor – varav en vy hanterar en full CRUD-tabell.
+
+Tidsplanering
+Vecka 45 (3-7 nov) - Planering och design
+Fokus: Idé, research, wireframes och designsystem
+Måndag 3/11: Projektintroduktion (Gränssnittsdesign) ✅
+Tisdag 4/11: Brainstorma och välja projektidé (Webbutveckling 2) ✅
+Torsdag 6/11: Skapa wireframes och designsystem (flera kurser)
+Fredag 7/11: Flask-grundstruktur och routing (Webbserverprogrammering 1)
+Mål vecka 45: Godkänd projektidé, wireframes klara, designsystem påbörjat
+
+Vecka 46 (10-14 nov) - Första fasen (kanske lite ambitiöst)
+Fokus: Grundläggande funktionalitet och visuell design
+Implementera baslayout (HTML/CSS)
+Skapa Flask-routes och templates
+Börja med databas-tabeller
+Första användartest av prototyp
+Mål vecka 46: Fungerande grundstruktur, minst 2 sidor implementerade
+
+Vecka 47 (17-21 nov) - Andra fasen
+Fokus: Interaktivitet och databasintegration
+JavaScript-funktionalitet (formulär, fetch API)
+Koppla frontend till Flask-backend
+CRUD-operationer mot databas
+Förfina gränssnittsdesign
+Mål vecka 47: Data sparas och hämtas från databas, interaktiva element fungerar
+
+Vecka 48 (24-28 nov) - Tredje fasen
+Fokus: Autentisering och användarupplevelse
+Implementera inloggning/registrering
+Sessions och cookies
+Andra användartestet
+Mikrointeraktioner och animationer
+Tillgänglighetscheck
+Mål vecka 48: Komplett funktionalitet, användartestning genomförd
+
+Vecka 49 (1-5 dec) - Fjärde fasen och delinlämning 1
+Fokus: Säkerhet, optimering och dokumentation
+Validering och felhantering
+Säkerhetsaspekter (SQL-injection, hashning)
+Responsiv design för mobil/desktop
+Optimera prestanda
+Börja dokumentera designval
+DELINLÄMNING FREDAG 5/12:
+Fungerande applikation (kan innehålla mindre buggar)
+Grundläggande dokumentation av funktionalitet
+Designmanual (färger, typsnitt, komponenter)
+
+Vecka 50 (8-12 dec) - Finslipning
+Fokus: Detaljer, dokumentation och presentation
+Bugfixar och edge cases
+Finslipa design och UX
+Komplett dokumentation
+Förbered presentation av projektet
+Mål vecka 50: Presentation klar, alla delar polerade
+
+Vecka 51 (15-18 dec) - Slutinlämning och presentation
+SLUTINLÄMNING MÅNDAG 15/12:
+Om vi hinner installera NFGY webbservern, kan ni publicera era projekt där som inlämning
+Teknisk del:
+Komplett kod (GitHub-repo eller zip)
+Fungerande applikation
+Databas med exempeldata
+README med installationsinstruktioner
+Designdokumentation:
+Designmanual/stilguide
+Wireframes och slutresultat
+Användartest-resultat och iterationer
+Reflektion (individuell):
+Designbeslut kopplade till Normans principer
+Tekniska utmaningar och lösningar
+Lärdomar och förbättringsområden
+1 till max 2 sidor text
+Torsdag 18/12: Terminsavslutning (inga presentationer denna dag)
+
+Bedömningsfokus per kurs
+Gränssnittsdesign:
+Användarcentrerad design och användbarhet
+Visuell hierarki, färg och typografi
+Tillgänglighet och responsiv design
+Dokumentation av designprocess
+Webbutveckling 2:
+JavaScript-interaktivitet och fetch API
+Responsiv layout och CSS
+Formulärhantering och validering
+Kod-struktur och organisation
+Webbserverprogrammering 1:
+Flask routing, templates och sessions
+Databas CRUD-operationer
+Autentisering och säkerhet
+Backend-logik och felhantering
+
+Lycka till med ditt projekt! 
+
