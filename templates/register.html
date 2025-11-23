@@ -16,7 +16,12 @@
         <label for="password">Lösenord:</label>
         <input id="password" type="password" name="password" placeholder="Lösenord">
 
+        <input type="checkbox" name="admin" value="1">
+        <label for="admin">Admin</label>
+
         <button type="submit">Skapa</button>
     </form>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
