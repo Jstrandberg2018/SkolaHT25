@@ -92,6 +92,11 @@ def register():
                     
     return render_template('register.html', username=username)
 
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('login'))
+
 @app.route('/recipe')
 def recipe():
     return render_template('recipe.html')

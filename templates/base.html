@@ -10,6 +10,14 @@
     <nav>
         <a href="{{ url_for('index') }}">Hem</a>
         <a href="{{ url_for('login')}}">Logga in</a>
+
+        {% if session.get('username') %}
+            <span>Inloggad som {{ session.get('username') }}</span>
+            <a href="{{ url_for('logout') }}">Logga ut</a>
+        {% else %}
+          <a href="{{ url_for('login') }}">Logga in</a>
+          <a href="{{ url_for('register') }}" >Registrera</a>
+        {% endif %}
     </nav>
 
     <main>{% block content %}{% endblock %}</main>
