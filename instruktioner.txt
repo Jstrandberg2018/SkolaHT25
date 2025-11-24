@@ -19,13 +19,13 @@ Fokus: Idé, research, wireframes och designsystem
 Måndag 3/11: Projektintroduktion (Gränssnittsdesign) ✅
 Tisdag 4/11: Brainstorma och välja projektidé (Webbutveckling 2) ✅
 Torsdag 6/11: Skapa wireframes och designsystem (flera kurser)
-Fredag 7/11: Flask-grundstruktur och routing (Webbserverprogrammering 1)
+Fredag 7/11: Flask-grundstruktur och routing (Webbserverprogrammering 1)✅
 Mål vecka 45: Godkänd projektidé, wireframes klara, designsystem påbörjat
 
 Vecka 46 (10-14 nov) - Första fasen (kanske lite ambitiöst)
 Fokus: Grundläggande funktionalitet och visuell design
-Implementera baslayout (HTML/CSS)
-Skapa Flask-routes och templates
+Implementera baslayout (HTML/CSS) ✅
+Skapa Flask-routes och templates 
 Börja med databas-tabeller
 Första användartest av prototyp
 Mål vecka 46: Fungerande grundstruktur, minst 2 sidor implementerade
