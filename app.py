@@ -92,6 +92,19 @@ def register():
                     
     return render_template('register.html', username=username)
 
+@app.route('/admin')
+def admin_index():
+    if not session.get('username'):
+        return redirect(url_for('login'))
+    
+    with sqlite3.connect('app.db') as conn:
+        conn.row_factory = sqlite3.Row
+        cursor = conn.cursor()
+        cursor.execute("SELECT id, username, admin FROM users ORDER BY username")
+        users = cursor.fetchall()
+
+    return render_template('admin.html', users=users)
+
 @app.route('/logout')
 def logout():
     session.clear()

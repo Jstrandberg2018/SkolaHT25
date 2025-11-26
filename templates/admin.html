@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+<h1>Administratörspanel</h1>
+
+<p>Inloggad som: <strong>{{ session.username }}</strong></p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Användarnamn</th>
+            <th>Admin?</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for user in users %}
+        <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.username }}</td>
+            <td>
+                {% if user.admin %}
+                    ✔ Ja
+                {% else %}
+                    ✖ Nej
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
