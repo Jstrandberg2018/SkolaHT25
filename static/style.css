@@ -1,6 +1,8 @@
 :root {
-    --primary-color: #4CAF50;
-    --secondary-color: #ff9800;
+    --primary-color: #2E8B57;
+    --secondary-color: #E8F5E9;
+    --third-color: #66BB6A;
+    --forth-color: #1B5E20;
     --font-family: 'Arial, sans-serif';
 }
 
@@ -8,5 +10,18 @@ body {
     font-family: var(--font-family);
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background-color: var(--secondary-color);
+}
+
+nav {
+    padding: 10px;
+}
+
+nav a {
+    border-style: solid;
+    border-radius: 8px;
+}
+
+.left{
+    color: var(--primary-color);
 }

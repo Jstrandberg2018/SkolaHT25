@@ -10,17 +10,19 @@
     <nav>
         <a href="{{ url_for('index') }}">Hem</a>
 
-        {% if session.get('username') %}
-            <span>Inloggad som {{ session.get('username') }}</span>
-            <a href="{{ url_for('logout') }}">Logga ut</a>
-        {% else %}
-          <a href="{{ url_for('login') }}">Logga in</a>
-          <a href="{{ url_for('register') }}" >Registrera</a>
-        {% endif %}
+        <div class="left">
+            {% if session.get('username') %}
+                <span>Inloggad som {{ session.get('username') }}</span>
+                <a href="{{ url_for('logout') }}">Logga ut</a>
+            {% else %}
+                <a href="{{ url_for('login') }}">Logga in</a>
+                <a href="{{ url_for('register') }}" >Registrera</a>
+            {% endif %}
 
-        {% if session.get('admin') %}
-          <a href="{{ url_for('admin') }}">Admin</a>
-        {% endif %}
+            {% if session.get('is_admin') %}
+                <a href="{{ url_for('admin_index') }}">Admin</a>
+            {% endif %}
+        </div>
     </nav>
 
     <main>{% block content %}{% endblock %}</main>
