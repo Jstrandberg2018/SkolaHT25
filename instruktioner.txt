@@ -25,25 +25,25 @@ Mål vecka 45: Godkänd projektidé, wireframes klara, designsystem påbörjat
 Vecka 46 (10-14 nov) - Första fasen (kanske lite ambitiöst)
 Fokus: Grundläggande funktionalitet och visuell design
 Implementera baslayout (HTML/CSS) ✅
-Skapa Flask-routes och templates 
-Börja med databas-tabeller
-Första användartest av prototyp
+Skapa Flask-routes och templates ✅
+Börja med databas-tabeller ✅
+Första användartest av prototyp 
 Mål vecka 46: Fungerande grundstruktur, minst 2 sidor implementerade
 
 Vecka 47 (17-21 nov) - Andra fasen
 Fokus: Interaktivitet och databasintegration
 JavaScript-funktionalitet (formulär, fetch API)
-Koppla frontend till Flask-backend
-CRUD-operationer mot databas
+Koppla frontend till Flask-backend ✅
+CRUD-operationer mot databas ✅
 Förfina gränssnittsdesign
 Mål vecka 47: Data sparas och hämtas från databas, interaktiva element fungerar
 
 Vecka 48 (24-28 nov) - Tredje fasen
 Fokus: Autentisering och användarupplevelse
-Implementera inloggning/registrering
+Implementera inloggning/registrering ✅
 Sessions och cookies
 Andra användartestet
-Mikrointeraktioner och animationer
+Animationer
 Tillgänglighetscheck
 Mål vecka 48: Komplett funktionalitet, användartestning genomförd
 

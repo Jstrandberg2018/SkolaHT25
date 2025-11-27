@@ -27,6 +27,13 @@
                 {% else %}
                     ✖ Nej
                 {% endif %}
+            
+            <td>
+                <a href="{{ url_for('admin_edit_user', user_id=user['id']) }}">Ändra</a>
+                <form method="POST" action="{{ url_for('admin_delete_user', user_id=user['id']) }}">
+                    <button type="submit">Radera</button>
+                </form>
+            </td>
             </td>
         </tr>
         {% endfor %}
