@@ -9,7 +9,7 @@
 <form method="post">
       <input type="text" name="username" value="{{ user['username'] }}" required>
       <input type="password" name="password" placeholder="Nytt lösenord">
-      <label><input type="checkbox" name="admin" {% if user['admin'] %}checked{% endif %}> Admin</label>
+      <label><input type="checkbox" name="admin" {% if user['admin'] %}checked{% endif %}>Admin</label>
       <button type="submit">Spara</button>
       <a href="{{ url_for('admin_index') }}">Avbryt</a>
 </form>

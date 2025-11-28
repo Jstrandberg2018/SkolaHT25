@@ -7,27 +7,29 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <nav>
-        <a href="{{ url_for('index') }}">Hem</a>
+    <nav class="main-nav">
+        <div class="nav-list">
+            <a class="nav-link" href="{{ url_for('index') }}">Hem</a>
 
-        <div class="left">
-            {% if session.get('username') %}
-                <span>Inloggad som {{ session.get('username') }}</span>
-                <a href="{{ url_for('logout') }}">Logga ut</a>
-            {% else %}
-                <a href="{{ url_for('login') }}">Logga in</a>
-                <a href="{{ url_for('register') }}" >Registrera</a>
-            {% endif %}
+            <div class="left">
+                {% if session.get('username') %}
+                    <span>Inloggad som: {{ session.get('username') }}</span>
+                    <a class="nav-link" href="{{ url_for('logout') }}">Logga ut</a>
+                {% else %}
+                    <a class="nav-link" href="{{ url_for('login') }}">Logga in</a>
+                    <a class="nav-link" href="{{ url_for('register') }}">Registrera</a>
+                {% endif %}
 
-            {% if session.get('is_admin') %}
-                <a href="{{ url_for('admin_index') }}">Admin</a>
-            {% endif %}
+                {% if session.get('is_admin') %}
+                    <a class="nav-link" href="{{ url_for('admin_index') }}">Admin</a>
+                {% endif %}
+            </div>
         </div>
     </nav>
 
     <main>{% block content %}{% endblock %}</main>
 
-    <footer>
+    <footer class="site-footer">
         <p>&copy; {{ current_year if current_year is defined else "2025" }} Projekt HT25</p>
     </footer>
 
