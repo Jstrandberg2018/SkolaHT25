@@ -6,11 +6,20 @@
     --font-family: 'Arial, sans-serif';
 }
 
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
 body {
     font-family: var(--font-family);
     margin: 0;
     padding: 0;
     background-color: var(--secondary-color);
+}
+
+.content {
+    flex: 1;
 }
 
 .main-nav {
@@ -38,10 +47,8 @@ body {
     transition: background 0.2s;
 }
 
-.site-footer {
+footer {
     background: var(--primary-color);
-    color: #fff;
     padding: 20px;
     text-align: center;
-    margin-top: 40px;  /* Lite luft ovanför footern */
 }

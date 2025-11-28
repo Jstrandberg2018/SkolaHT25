@@ -7,14 +7,6 @@ from werkzeug.security import generate_password_hash, check_password_hash
 app = Flask(__name__)
 app.secret_key = 'hemlig_nyckel' #ändra till mer säker senare
 
-DATABASE = 'users.db'
-
-def get_db_connection():
-    conn = sqlite3.connect(DATABASE)
-    conn.row_factory = sqlite3.Row
-    return conn
-
-
 def create_tables():
     with sqlite3.connect('app.db') as conn:
         cursor = conn.cursor()
