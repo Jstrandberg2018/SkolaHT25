@@ -9,6 +9,8 @@
     <!-- För att knappen blir rund och lika stor: lägg till class="form-add" och btn-add -->
     <form method="post" aria-label="Lägg till recept" class="form-add">
         <input id="recipe" class="input" type="text" name="recipe" placeholder="Skapa recept" required aria-required="true">
+        <textarea name="ingredients" id="ingredients" type="textarea" placeholder="Lägg in ingredienser"></textarea>
+        <input name="calories" type="text" id="calories" placeholder="Kalorier">
         <button type="submit" class="btn btn-add">Lägg till</button>
     </form>
 

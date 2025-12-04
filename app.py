@@ -22,9 +22,12 @@ def create_tables():
         cursor.execute("""
                     CREATE TABLE IF NOT EXISTS recipes (
                         id INTEGER PRIMARY KEY AUTOINCREMENT,
-                        title TEXT NOT NULL
+                        title TEXT NOT NULL,
+                        ingredients TEXT,
+                        calories INTEGER
                     )
                     """)
+        conn.commit()
 
 def get_user_by_username(username):
     with sqlite3.connect('app.db') as conn:
@@ -53,33 +56,53 @@ def get_all_recipes():
     with sqlite3.connect('app.db') as conn:
         conn.row_factory = sqlite3.Row
         cursor = conn.cursor()
-        cursor.execute("SELECT id, title FROM recipes ORDER BY id")
+        cursor.execute("SELECT id, title, ingredients, calories FROM recipes ORDER BY id")
         return cursor.fetchall()
 
 def get_recipe_by_id(recipe_id):
     with sqlite3.connect('app.db') as conn:
         conn.row_factory = sqlite3.Row
         cursor = conn.cursor()
-        cursor.execute("SELECT id, title FROM recipes WHERE id = ?", (recipe_id,))
+        cursor.execute("SELECT id, title, ingredients, calories FROM recipes WHERE id = ?", (recipe_id,))
         return cursor.fetchone()
 
-def create_recipe(title):
+def create_recipe(title, ingredients=None, calories=None):
     with sqlite3.connect('app.db') as conn:
         cursor = conn.cursor()
-        cursor.execute("INSERT INTO recipes(title) VALUES (?)", (title,))
+        cursor.execute("INSERT INTO recipes(title, ingredients, calories) VALUES (?, ?, ?)",
+                       (title, ingredients, calories))
         conn.commit()
         return cursor.lastrowid
 
-def update_recipe_db(recipe_id, title):
-    with sqlite3.connect('app.db') as conn:
+def update_recipe_db(recipe_id, title=None, ingredients=None, calories=None):
+     with sqlite3.connect('app.db') as conn:
         cursor = conn.cursor()
-        cursor.execute("UPDATE recipes SET title = ? WHERE id = ?", (title, recipe_id))
+        # Uppdatera bara de fält som skickas (enkelt fall)
+        cursor.execute("""
+            UPDATE recipes
+            SET title = COALESCE(?, title),
+                ingredients = COALESCE(?, ingredients),
+                calories = COALESCE(?, calories)
+            WHERE id = ?
+        """, (title, ingredients, calories, recipe_id))
         conn.commit()
 
 def delete_recipe_db(recipe_id):
     with sqlite3.connect('app.db') as conn:
         cursor = conn.cursor()
         cursor.execute("DELETE FROM recipes WHERE id = ?", (recipe_id,))
+        conn.commit()
+
+def ensure_recipe_columns():
+    """Lägg till ingredients/calories om de saknas (enkelt migrationssteg)."""
+    with sqlite3.connect('app.db') as conn:
+        cursor = conn.cursor()
+        cursor.execute("PRAGMA table_info(recipes)")
+        cols = [r[1] for r in cursor.fetchall()]
+        if 'ingredients' not in cols:
+            cursor.execute("ALTER TABLE recipes ADD COLUMN ingredients TEXT")
+        if 'calories' not in cols:
+            cursor.execute("ALTER TABLE recipes ADD COLUMN calories INTEGER")
         conn.commit()
 
 @app.route('/')
@@ -197,13 +220,18 @@ def logout():
 
 @app.route('/recipe', methods=['GET', 'POST'])
 def recipe():
-    # POST: skapa nytt recept
     if request.method == 'POST':
         title = request.form.get('recipe', '').strip()
+        ingredients = request.form.get('ingredients', '').strip() or None
+        calories = request.form.get('calories', '').strip() or None
+        # konvertera calories till int om möjligt
+        try:
+            calories = int(calories) if calories is not None and calories != '' else None
+        except ValueError:
+            calories = None
         if title:
-            create_recipe(title)
+            create_recipe(title, ingredients, calories)
         return redirect(url_for('recipe'))
-    # GET: visa lista
     recipes = get_all_recipes()
     return render_template('recipe.html', recipe=recipes)
 
@@ -213,9 +241,14 @@ def edit_recipe(recipe_id):
     if not r:
         return redirect(url_for('recipe'))
     if request.method == 'POST':
-        title = request.form.get('title', '').strip()
-        if title:
-            update_recipe_db(recipe_id, title)
+        title = request.form.get('title', '').strip() or None
+        ingredients = request.form.get('ingredients', '').strip() or None
+        calories = request.form.get('calories', '').strip() or None
+        try:
+            calories = int(calories) if calories is not None and calories != '' else None
+        except ValueError:
+            calories = None
+        update_recipe_db(recipe_id, title=title, ingredients=ingredients, calories=calories)
         return redirect(url_for('recipe'))
     return render_template('edit_recipe.html', recipe=r)
 
@@ -226,4 +259,5 @@ def delete_recipe(recipe_id):
 
 if __name__ == '__main__':
     create_tables()
+    ensure_recipe_columns()
     app.run(debug=True)
