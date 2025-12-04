@@ -5,4 +5,29 @@
 {% block content %}
     <h1>Välkommen till Recept-databasen!</h1>
     <p>Här kan du hitta och dela dina favorit recept.</p>
+
+    <!-- För att knappen blir rund och lika stor: lägg till class="form-add" och btn-add -->
+    <form method="post" aria-label="Lägg till recept" class="form-add">
+        <input id="recipe" class="input" type="text" name="recipe" placeholder="Skapa recept" required aria-required="true">
+        <button type="submit" class="btn btn-add">Lägg till</button>
+    </form>
+
+    <ul class="recipe-list">
+        {% for recipes in recipe %}
+        <li data-id="{{ recipes['id'] }}">
+            <div class="recipe-title">
+                {{ recipes['title'] }}
+            </div>
+            <div class="recipe-actions">
+                <a class="btn" href="{{ url_for('edit_recipe', recipe_id=recipes['id']) }}">Ändra</a>
+                <form method="POST" action="{{ url_for('delete_recipe', recipe_id=recipes['id']) }}" style="margin:0;">
+                    <button class="btn btn-danger" type="submit" aria-label="Ta bort recept">Ta bort</button>
+                </form>
+            </div>
+        </li>
+        {% else %}
+        <li>Inga recept ännu!</li>
+        {% endfor %}
+    </ul>
+    
 {% endblock %}

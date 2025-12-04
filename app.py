@@ -19,6 +19,12 @@ def create_tables():
                         admin INTEGER NOT NULL DEFAULT 0
                         )
                     """)
+        cursor.execute("""
+                    CREATE TABLE IF NOT EXISTS recipes (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        title TEXT NOT NULL
+                    )
+                    """)
 
 def get_user_by_username(username):
     with sqlite3.connect('app.db') as conn:
@@ -42,6 +48,40 @@ def hash_password(plain_text_password):
 def check_password(plain_text_password, hashed_password):
     return check_password_hash(hashed_password, plain_text_password)
 
+# --- Recept-hjälpare (enkla DB-anrop) ---
+def get_all_recipes():
+    with sqlite3.connect('app.db') as conn:
+        conn.row_factory = sqlite3.Row
+        cursor = conn.cursor()
+        cursor.execute("SELECT id, title FROM recipes ORDER BY id")
+        return cursor.fetchall()
+
+def get_recipe_by_id(recipe_id):
+    with sqlite3.connect('app.db') as conn:
+        conn.row_factory = sqlite3.Row
+        cursor = conn.cursor()
+        cursor.execute("SELECT id, title FROM recipes WHERE id = ?", (recipe_id,))
+        return cursor.fetchone()
+
+def create_recipe(title):
+    with sqlite3.connect('app.db') as conn:
+        cursor = conn.cursor()
+        cursor.execute("INSERT INTO recipes(title) VALUES (?)", (title,))
+        conn.commit()
+        return cursor.lastrowid
+
+def update_recipe_db(recipe_id, title):
+    with sqlite3.connect('app.db') as conn:
+        cursor = conn.cursor()
+        cursor.execute("UPDATE recipes SET title = ? WHERE id = ?", (title, recipe_id))
+        conn.commit()
+
+def delete_recipe_db(recipe_id):
+    with sqlite3.connect('app.db') as conn:
+        cursor = conn.cursor()
+        cursor.execute("DELETE FROM recipes WHERE id = ?", (recipe_id,))
+        conn.commit()
+
 @app.route('/')
 def index():
     if session.get('username'):
@@ -50,8 +90,6 @@ def index():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    username = ''
-    
     if request.method == 'POST':
         username = request.form.get('username', '').strip()
         password = request.form.get('password', '')
@@ -68,12 +106,10 @@ def login():
         
         flash('Fel användarnamn eller lösenord')
         
-    return render_template('login.html', username=username)
+    return render_template('login.html', hide_nav=True)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    username = ''
-    
     if request.method == 'POST':
         username = request.form.get('username', '').strip()
         password = request.form.get('password', '')
@@ -98,7 +134,7 @@ def register():
                 except sqlite3.IntegrityError:
                     flash('Användarnamnet upptaget')
                     
-    return render_template('register.html', username=username)
+    return render_template('register.html', hide_nav=True)
 
 @app.route('/admin')
 def admin_index():
@@ -159,9 +195,34 @@ def logout():
     session.clear()
     return redirect(url_for('login'))
 
-@app.route('/recipe')
+@app.route('/recipe', methods=['GET', 'POST'])
 def recipe():
-    return render_template('recipe.html')
+    # POST: skapa nytt recept
+    if request.method == 'POST':
+        title = request.form.get('recipe', '').strip()
+        if title:
+            create_recipe(title)
+        return redirect(url_for('recipe'))
+    # GET: visa lista
+    recipes = get_all_recipes()
+    return render_template('recipe.html', recipe=recipes)
+
+@app.route('/edit/<int:recipe_id>', methods=['GET', 'POST'])
+def edit_recipe(recipe_id):
+    r = get_recipe_by_id(recipe_id)
+    if not r:
+        return redirect(url_for('recipe'))
+    if request.method == 'POST':
+        title = request.form.get('title', '').strip()
+        if title:
+            update_recipe_db(recipe_id, title)
+        return redirect(url_for('recipe'))
+    return render_template('edit_recipe.html', recipe=r)
+
+@app.route('/delete/<int:recipe_id>', methods=['POST'])
+def delete_recipe(recipe_id):
+    delete_recipe_db(recipe_id)
+    return redirect(url_for('recipe'))
 
 if __name__ == '__main__':
     create_tables()

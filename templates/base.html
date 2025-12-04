@@ -7,10 +7,16 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <div class="content">
+    <div class="app">
+        {% if not hide_nav %}
+        <!-- fullbredd nav med centrerad inre container -->
         <nav class="main-nav">
-            <div class="nav-list">
-                <a class="nav-link" href="{{ url_for('index') }}">Hem</a>
+            <div class="nav-inner">
+                <div class="nav-list">
+                    <a class="nav-link" href="{{ url_for('index') }}">Hem</a>
+                    <a class="nav-link" href="{{ url_for('recipe') }}">Recept</a>
+                    <!-- återställ dina övriga nav-element här -->
+                </div>
 
                 <div class="left">
                     {% if session.get('username') %}
@@ -27,13 +33,19 @@
                 </div>
             </div>
         </nav>
+        {% endif %}
 
-        <main>{% block content %}{% endblock %}</main>
+        <!-- Main content: använd denna wrapper så footer alltid hamnar längst ner -->
+        <main class="site-main container content-left">
+            {% block content %}{% endblock %}
+        </main>
+
+        {% if not hide_nav %}
+        <footer>
+            &copy; Projekt 2025
+        </footer>
+        {% endif %}
     </div>
-
-    <footer class="site-footer">
-        <p>&copy; {{ current_year if current_year is defined else "2025" }} Projekt HT25</p>
-    </footer>
 
     <script src="{{ url_for('static', filename='script.js')}}"></script>
 </body>

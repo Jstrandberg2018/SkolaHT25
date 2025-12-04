@@ -7,7 +7,7 @@
 
 <p>Inloggad som: <strong>{{ session.username }}</strong></p>
 
-<table>
+<table class="admin-table">
     <thead>
         <tr>
             <th>ID</th>
@@ -29,13 +29,14 @@
                 {% endif %}
             
             <td>
-                <a href="{{ url_for('admin_edit_user', user_id=user['id']) }}">Ändra</a>
-                <form method="POST" action="{{ url_for('admin_delete_user', user_id=user['id']) }}">
-                    <button type="submit">Radera</button>
-                </form>
-            </td>
-            </td>
-        </tr>
+                <div class="admin-actions">
+                    <a class="btn" href="{{ url_for('admin_edit_user', user_id=user['id']) }}">Ändra</a>
+                    <form method="POST" action="{{ url_for('admin_delete_user', user_id=user['id']) }}" style="margin:0;">
+                        <button class="btn btn-danger" type="submit">Radera</button>
+                    </form>
+                </div>
+             </td>
+         </tr>
         {% endfor %}
     </tbody>
 </table>

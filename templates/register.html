@@ -1,27 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Regristrera</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-    <h2>Registrera</h2>
-    
-    <form method="POST">
-        <label for="username">Användarnamn:</label>
-        <input id="username" type="text" name="username" placeholder="Användarnamn">
+{% extends 'base.html' %}
 
-        <label for="password">Lösenord:</label>
-        <input id="password" type="password" name="password" placeholder="Lösenord">
+{% block title %}Registrera{% endblock %}
 
-        <input type="checkbox" name="admin" value="1">
-        <label for="admin">Admin</label>
-
-        <button type="submit">Skapa</button>
-    </form>
-
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
-</body>
-</html>
+{% block content %}
+<div class="card card-wide">
+  <h2>Skapa konto</h2>
+  <form method="POST" class="form-inline" style="flex-direction:column;gap:12px;">
+    <label for="username" style="margin:0;font-weight:600;">Användarnamn</label>
+    <input id="username" class="input" type="text" name="username" placeholder="Användarnamn" required aria-required="true">
+    <label for="password" style="margin:0;font-weight:600;">Lösenord</label>
+    <input id="password" class="input" type="password" name="password" placeholder="Lösenord" required aria-required="true">
+    <label style="display:inline-flex;align-items:center;gap:8px;">
+      <input type="checkbox" name="admin" value="1"> Admin
+    </label>
+    <div style="display:flex;gap:8px;align-items:center;">
+      <button type="submit" class="btn">Skapa</button>
+      <a class="btn" href="{{ url_for('login') }}">Tillbaka</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

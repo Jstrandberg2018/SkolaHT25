@@ -6,11 +6,15 @@
 <h2>Ändra användare</h2>
 <p>Lämna lösenord tomt för att behålla gamla!</p>
 
-<form method="post">
-      <input type="text" name="username" value="{{ user['username'] }}" required>
-      <input type="password" name="password" placeholder="Nytt lösenord">
-      <label><input type="checkbox" name="admin" {% if user['admin'] %}checked{% endif %}>Admin</label>
-      <button type="submit">Spara</button>
-      <a href="{{ url_for('admin_index') }}">Avbryt</a>
+<form method="post" class="form-inline">
+      <input class="input" type="text" name="username" value="{{ user['username'] }}" required>
+      <input class="input" type="password" name="password" placeholder="Nytt lösenord">
+      <label style="display:inline-flex;align-items:center;gap:8px;margin-left:8px;">
+          <input type="checkbox" name="admin" {% if user['admin'] %}checked{% endif %}> Admin
+      </label>
+      <div style="display:flex;gap:8px;margin-left:8px;align-items:center;">
+          <button type="submit" class="btn">Spara</button>
+          <a class="btn btn-link" href="{{ url_for('admin_index') }}">Avbryt</a>
+      </div>
 </form>
 {% endblock %}
