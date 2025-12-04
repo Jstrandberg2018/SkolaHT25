@@ -1,6 +1,6 @@
 #Recept-databas med betyg och kommentarer
 
-from flask import Flask, render_template, flash, url_for, session, redirect, request
+from flask import Flask, render_template, flash, url_for, session, redirect, request, jsonify
 import sqlite3
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -114,21 +114,22 @@ def index():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        username = request.form.get('username', '').strip()
-        password = request.form.get('password', '')
-        admin = request.form.get('admin')
-        
+        data = request.get_json()  # ← Nytt: hämta JSON som fetch() skickar
+        username = data.get('username', '').strip()
+        password = data.get('password', '')
+
         if username and password:
             user = get_user_by_username(username)
-        
+
             if user and check_password(password, user['password']):
                 session['user_id'] = user['id']
                 session['username'] = user['username']
                 session['is_admin'] = bool(user['admin'])
-                return redirect('recipe')
-        
-        flash('Fel användarnamn eller lösenord')
-        
+                return jsonify({
+                    "success": True,
+                    "redirect": url_for("recipe")
+                })
+
     return render_template('login.html', hide_nav=True)
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -231,7 +232,8 @@ def recipe():
             calories = None
         if title:
             create_recipe(title, ingredients, calories)
-        return redirect(url_for('recipe'))
+        # Efter skapande, visa receptsamlingen så alla kan se det nya receptet
+        return redirect(url_for('recipe_collection'))
     recipes = get_all_recipes()
     return render_template('recipe.html', recipe=recipes)
 
@@ -256,6 +258,12 @@ def edit_recipe(recipe_id):
 def delete_recipe(recipe_id):
     delete_recipe_db(recipe_id)
     return redirect(url_for('recipe'))
+
+@app.route('/collection')
+def recipe_collection():
+    # Hämta alla recept och skicka till mallen
+    recipes = get_all_recipes()
+    return render_template('recipe_collection.html', recipe=recipes)
 
 if __name__ == '__main__':
     create_tables()
