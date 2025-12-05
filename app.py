@@ -224,46 +224,51 @@ def recipe():
     if request.method == 'POST':
         title = request.form.get('recipe', '').strip()
         ingredients = request.form.get('ingredients', '').strip() or None
-        calories = request.form.get('calories', '').strip() or None
-        # konvertera calories till int om möjligt
+        calories_raw = request.form.get('calories', '').strip()
+        print(title, ingredients, calories_raw)
         try:
-            calories = int(calories) if calories is not None and calories != '' else None
+            calories = int(calories_raw) if calories_raw != '' else None
         except ValueError:
             calories = None
         if title:
-            create_recipe(title, ingredients, calories)
-        # Efter skapande, visa receptsamlingen så alla kan se det nya receptet
+            create_recipe(title, ingredients=ingredients, calories=calories)
+        # efter skapande: gå till collection-sidan
         return redirect(url_for('recipe_collection'))
-    recipes = get_all_recipes()
-    return render_template('recipe.html', recipe=recipes)
+    # GET: visa formuläret för att lägga till
+    return render_template('recipe.html')
 
-@app.route('/edit/<int:recipe_id>', methods=['GET', 'POST'])
+@app.route('/recipe_collection/edit/<int:recipe_id>', methods=['GET', 'POST'])
 def edit_recipe(recipe_id):
+    # Hämta receptet, visa formulär eller spara ändringar
     r = get_recipe_by_id(recipe_id)
     if not r:
-        return redirect(url_for('recipe'))
+        return redirect(url_for('recipe_collection'))
+
     if request.method == 'POST':
         title = request.form.get('title', '').strip() or None
         ingredients = request.form.get('ingredients', '').strip() or None
-        calories = request.form.get('calories', '').strip() or None
+        calories_raw = request.form.get('calories', '').strip()
         try:
-            calories = int(calories) if calories is not None and calories != '' else None
+            calories = int(calories_raw) if calories_raw != '' else None
         except ValueError:
             calories = None
         update_recipe_db(recipe_id, title=title, ingredients=ingredients, calories=calories)
-        return redirect(url_for('recipe'))
+        return redirect(url_for('recipe_collection'))
+
     return render_template('edit_recipe.html', recipe=r)
+
 
 @app.route('/delete/<int:recipe_id>', methods=['POST'])
 def delete_recipe(recipe_id):
+    # Säg till DB att ta bort och gå tillbaka till collection
     delete_recipe_db(recipe_id)
-    return redirect(url_for('recipe'))
+    return redirect(url_for('recipe_collection'))
 
-@app.route('/collection')
+@app.route('/recipe_collection')
 def recipe_collection():
-    # Hämta alla recept och skicka till mallen
+    # visa alla recept i collection (template: recipe_collection.html)
     recipes = get_all_recipes()
-    return render_template('recipe_collection.html', recipe=recipes)
+    return render_template('recipe_collection.html', recipes=recipes)
 
 if __name__ == '__main__':
     create_tables()

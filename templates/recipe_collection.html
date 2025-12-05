@@ -4,20 +4,26 @@
 
 {% block content %}
     <ul class="recipe-list">
-        {% for recipes in recipe %}
-        <li data-id="{{ recipes['id'] }}">
+        {% for r in recipes %}
+        <li data-id="{{ r['id'] }}">
             <div class="recipe-title">
-                {{ recipes['title'] }}
+                {{ r['title'] }}
+                {% if r['ingredients'] %}
+                <div class="recipe-ingredients">{{ r['ingredients'] }}</div>
+                {% endif %}
+                {% if r['calories'] %}
+                <div class="recipe-calories">Kalorier: {{ r['calories'] }}</div>
+                {% endif %}
             </div>
             <div class="recipe-actions">
-                <a class="btn" href="{{ url_for('edit_recipe', recipe_id=recipes['id']) }}">Ändra</a>
-                <form method="POST" action="{{ url_for('delete_recipe', recipe_id=recipes['id']) }}" style="margin:0;">
+                <a class="btn" href="{{ url_for('edit_recipe', recipe_id=r['id']) }}">Ändra</a>
+                <form method="POST" action="{{ url_for('delete_recipe', recipe_id=r['id']) }}" style="margin:0;">
                     <button class="btn btn-danger" type="submit" aria-label="Ta bort recept">Ta bort</button>
                 </form>
             </div>
         </li>
         {% else %}
-        <h1>Inga recept ännu!</h1>
+        <li class="card">Inga recept ännu!</li>
         {% endfor %}
     </ul>
 {% endblock %}
