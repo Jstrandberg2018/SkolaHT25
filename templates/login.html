@@ -5,7 +5,7 @@
 {% block content %}
 <div class="card card-wide">
   <h2>Logga in</h2>
-  <form method="POST" class="form-inline" style="flex-direction:column;gap:12px;">
+  <form method="POST" action="/login" class="form-inline" style="flex-direction:column;gap:12px;">
     <input id="username" class="input" type="text" name="username" placeholder="Användarnamn" required aria-required="true">
     <input id="password" class="input" type="password" name="password" placeholder="Lösenord" required aria-required="true">
     <div style="display:flex;gap:8px;align-items:center;">

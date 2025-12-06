@@ -192,10 +192,62 @@ a {
     align-items: center;
 }
 
-/* Forms */
-form { margin: 0; }
+/* Receptformulär — vertikal layout med grupper */
+.form-recipe {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin: 20px 0;
+}
 
-.form-inline { display: flex; gap: 8px; align-items: center; }
+.form-recipe .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-recipe .form-group h2 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: var(--muted);
+    font-weight: 600;
+}
+
+.form-recipe .input,
+.form-recipe input,
+.form-recipe textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 12px;
+    border-radius: 6px;
+    border: 1px solid rgba(0,0,0,0.08);
+    background: #fff;
+    color: var(--text-color);
+    font-family: var(--font-family);
+}
+
+.form-recipe textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.form-recipe .btn-add {
+    align-self: flex-start;
+    border-radius: 6px;
+    padding: 10px 20px;
+    margin-top: 10px;
+}
+
+/* Forms */
+form { 
+    margin: 0; 
+}
+
+.form-inline { 
+    display: flex; 
+    gap: 8px; 
+    align-items: center;
+ }
 
 .input, input[type="text"], input[type="password"], textarea {
     padding: 10px 12px;
@@ -261,7 +313,9 @@ footer {
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.04);
 }
-.admin-list .user-card + .user-card { margin-top: 10px; }
+.admin-list .user-card + .user-card { 
+    margin-top: 10px; 
+}
 
 /* admin: gör action-knappar lika stilade som övriga .btn */
 .admin-actions a.btn, .admin-actions button.btn {

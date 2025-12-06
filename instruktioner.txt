@@ -27,12 +27,12 @@ Fokus: Grundläggande funktionalitet och visuell design
 Implementera baslayout (HTML/CSS) ✅
 Skapa Flask-routes och templates ✅
 Börja med databas-tabeller ✅
-Första användartest av prototyp 
+Första användartest av prototyp ✅
 Mål vecka 46: Fungerande grundstruktur, minst 2 sidor implementerade
 
 Vecka 47 (17-21 nov) - Andra fasen
 Fokus: Interaktivitet och databasintegration
-JavaScript-funktionalitet (formulär, fetch API)
+JavaScript-funktionalitet (formulär, fetch API) 
 Koppla frontend till Flask-backend ✅
 CRUD-operationer mot databas ✅
 Förfina gränssnittsdesign

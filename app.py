@@ -114,9 +114,14 @@ def index():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        data = request.get_json()  # ← Nytt: hämta JSON som fetch() skickar
-        username = data.get('username', '').strip()
-        password = data.get('password', '')
+        # Stöd både JSON (fetch) och vanlig form-post
+        if request.is_json:
+            data = request.get_json()
+            username = data.get('username', '').strip()
+            password = data.get('password', '')
+        else:
+            username = request.form.get('username', '').strip()
+            password = request.form.get('password', '')
 
         if username and password:
             user = get_user_by_username(username)
@@ -125,10 +130,20 @@ def login():
                 session['user_id'] = user['id']
                 session['username'] = user['username']
                 session['is_admin'] = bool(user['admin'])
-                return jsonify({
-                    "success": True,
-                    "redirect": url_for("recipe")
-                })
+                # Om AJAX/JSON → svara med JSON, annars redirect
+                if request.is_json:
+                    return jsonify({
+                        "success": True,
+                        "redirect": url_for("recipe")
+                    })
+                return redirect(url_for('recipe'))
+
+        # Misslyckad inloggning: svara med JSON om begäran var JSON
+        if request.is_json:
+            return jsonify({"success": False, "message": "Fel användarnamn eller lösenord"}), 400
+
+        # För vanlig form-post, visa sidan igen (kan lägga till flash-meddelande)
+        flash('Fel användarnamn eller lösenord')
 
     return render_template('login.html', hide_nav=True)
 
@@ -232,10 +247,9 @@ def recipe():
             calories = None
         if title:
             create_recipe(title, ingredients=ingredients, calories=calories)
-        # efter skapande: gå till collection-sidan
-        return redirect(url_for('recipe_collection'))
     # GET: visa formuläret för att lägga till
-    return render_template('recipe.html')
+    recipes = get_all_recipes()
+    return render_template('recipe.html', recipes=recipes)
 
 @app.route('/recipe_collection/edit/<int:recipe_id>', methods=['GET', 'POST'])
 def edit_recipe(recipe_id):

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form method="POST" action="{{ url_for('recipe') }}" aria-label="Lägg till recept" class="form-add">
+        <input id="recipe" class="input" type="text" name="recipe" placeholder="Skapa recept" required aria-required="true">
+        <textarea name="ingredients" id="ingredients" class="input" placeholder="Lägg in ingredienser"></textarea>
+        <input name="calories" type="text" id="calories" class="input" placeholder="Kalorier">
+        <button type="submit" class="btn btn-add">Lägg till</button>
+</form>
+
+{% if recipe %}
+<div class="recipe-display">
+    <h2>{{ recipe }}</h2>
+
+    {% if ingredients %}
+        <h3>Ingredienser:</h3>
+        <p>{{ ingredients }}</p>
+    {% endif %}
+
+    {% if calories %}
+        <h3>Kalorier:</h3>
+        <p>{{ calories }}</p>
+    {% endif %}
+</div>
+{% endif %}
+{% endblock %}
