@@ -6,7 +6,7 @@
     <h1>Välkommen till Recept-databasen!</h1>
     <p>Här kan du hitta och dela dina favorit recept.</p>
 
-    <form method="POST" action="{{ url_for('recipe_collection') }}" aria-label="Lägg till recept" class="form-recipe">
+    <form method="POST" action="{{ url_for('recipe') }}" aria-label="Lägg till recept" class="form-recipe">
         <div class="form-group">
             <h2>Recept namn</h2>
             <input id="recipe" class="input" type="text" name="recipe" placeholder="Ange receptnamn" required aria-required="true">
