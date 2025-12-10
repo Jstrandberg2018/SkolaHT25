@@ -6,8 +6,15 @@
 <div class="card card-wide">
   <h2>Redigera recept</h2>
 
-  <form method="post" class="form-inline" style="flex-direction:column;gap:12px;">
+  <form method="post" class="form-recipe" style="flex-direction:column;gap:12px;"> 
     <input name="title" class="input" value="{{ recipe['title'] }}" required aria-required="true" aria-label="Recepttitel">
+
+    <div class="form-group">
+      <textarea name="ingredients" class="input" value="{{ recipe['ingredients'] }}" required aria-required="true" aria-label="Ingreidens"></textarea>
+    </div>
+    
+    <input name="calories" class="input" value="{{ recipe['calories'] }}" required aria-required="true" aria-label="Kalorier">
+
     <div style="display:flex;gap:8px;align-items:center;">
       <button type="submit" class="btn">Spara</button>
       <a class="btn btn-link" href="{{ url_for('recipe') }}">Avbryt</a>
