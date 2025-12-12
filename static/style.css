@@ -74,7 +74,7 @@ a {
     width: 100%;
     background: var(--nav-bg);
     color: white;
-    padding: 16px 0;
+    padding: 12px 0;
     box-shadow: var(--shadow);
     border-radius: 0;
 }
@@ -296,7 +296,7 @@ form {
 /* Footer: primär färg och innehåll centrerat */
 footer {
     background: var(--nav-bg);
-    padding: 14px 0;
+    padding: 16px 0;
     text-align: center;
     color: white;
     margin-top: 18px;
