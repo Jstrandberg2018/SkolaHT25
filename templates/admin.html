@@ -7,33 +7,33 @@
 
 <p>Inloggad som: <strong>{{ session.username }}</strong></p>
 
-<table class="admin-table">
+<table class="admin-table" aria-label="Administratörstabell med användare">
     <thead>
         <tr>
-            <th>ID</th>
-            <th>Användarnamn</th>
-            <th>Admin?</th>
-            <th>Annat</th>
+            <th scope="col">ID</th>
+            <th scope="col">Användarnamn</th>
+            <th scope="col">Admin?</th>
+            <th scope="col">Annat</th>
         </tr>
     </thead>
 
     <tbody>
         {% for user in users %}
-        <tr>
+        <tr aria-label="Användare {{ user.username }}">
             <td>{{ user.id }}</td>
             <td>{{ user.username }}</td>
             <td>
                 {% if user.admin %}
-                    ✔ Ja
+                    <span aria-label="Är administratör">✔ Ja</span>
                 {% else %}
-                    ✖ Nej
+                    <span aria-label="Är inte administratör">✖ Nej</span>
                 {% endif %}
             
             <td>
                 <div class="admin-actions">
-                    <a class="btn" href="{{ url_for('admin_edit_user', user_id=user['id']) }}">Ändra</a>
-                    <form method="POST" action="{{ url_for('admin_delete_user', user_id=user['id']) }}" style="margin: 0;">
-                        <button class="btn" type="submit">Radera</button>
+                    <a class="btn" href="{{ url_for('admin_edit_user', user_id=user['id']) }}" aria-label="Ändra användare {{ user.username }}">Ändra</a>
+                    <form method="POST" action="{{ url_for('admin_delete_user', user_id=user['id']) }}" style="margin: 0;" aria-label="Formulär för att radera användare">
+                        <button class="btn" type="submit" aria-label="Radera användare {{ user.username }}">Radera</button>
                     </form>
                 </div>
              </td>

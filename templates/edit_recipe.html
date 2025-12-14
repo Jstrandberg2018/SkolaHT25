@@ -6,18 +6,18 @@
 <div class="card card-wide">
   <h2>Redigera recept</h2>
 
-  <form method="post" class="form-recipe" style="flex-direction:column;gap:12px;"> 
-    <input name="title" class="input" value="{{ recipe['title'] }}" required aria-required="true" aria-label="Recepttitel">
+  <form method="post" class="form-recipe" style="flex-direction:column;gap:12px;" aria-label="Formulär för att redigera recept"> 
+    <input name="title" class="input" value="{{ recipe['title'] }}" required aria-required="true" aria-label="Receptets titel">
 
     <div class="form-group">
-      <textarea name="ingredients" class="input" value="{{ recipe['ingredients'] }}" required aria-required="true" aria-label="Ingreidens"></textarea>
+      <textarea name="ingredients" class="input" value="{{ recipe['ingredients'] }}" required aria-required="true" aria-label="Lista över ingredienser"></textarea>
     </div>
     
-    <input name="calories" class="input" value="{{ recipe['calories'] }}" required aria-required="true" aria-label="Kalorier">
+    <input name="calories" class="input" value="{{ recipe['calories'] }}" required aria-required="true" aria-label="Antal kalorier">
 
     <div style="display:flex;gap:8px;align-items:center;">
-      <button type="submit" class="btn">Spara</button>
-      <a class="btn btn-link" href="{{ url_for('recipe') }}">Avbryt</a>
+      <button type="submit" class="btn" aria-label="Spara ändringar på receptet">Spara</button>
+      <a class="btn btn-link" href="{{ url_for('recipe') }}" aria-label="Avbryt och gå tillbaka">Avbryt</a>
     </div>
   </form>
 </div>

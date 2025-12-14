@@ -6,15 +6,15 @@
 <h2>Ändra användare</h2>
 <p>Lämna lösenord tomt för att behålla gamla!</p>
 
-<form method="post" class="form-inline">
-      <input class="input" type="text" name="username" value="{{ user['username'] }}" required>
-      <input class="input" type="password" name="password" placeholder="Nytt lösenord">
+<form method="post" class="form-inline" aria-label="Formulär för att redigera användare">
+      <input class="input" type="text" name="username" value="{{ user['username'] }}" required aria-label="Användarnamn" aria-required="true">
+      <input class="input" type="password" name="password" placeholder="Nytt lösenord" aria-label="Nytt lösenord (lämna tomt för att behålla)">
       <label style="display:inline-flex;align-items:center;gap:8px;margin-left:8px;">
-          <input type="checkbox" name="admin" {% if user['admin'] %}checked{% endif %}> Admin
+          <input type="checkbox" name="admin" {% if user['admin'] %}checked{% endif %} aria-label="Ge användaren administratörsrättigheter"> Admin
       </label>
       <div style="display:flex;gap:8px;margin-left:8px;align-items:center;">
-          <button type="submit" class="btn">Spara</button>
-          <a class="btn btn-link" href="{{ url_for('admin_index') }}">Avbryt</a>
+          <button type="submit" class="btn" aria-label="Spara ändringar på användare">Spara</button>
+          <a class="btn btn-link" href="{{ url_for('admin_index') }}" aria-label="Avbryt och gå tillbaka till administratörspanelen">Avbryt</a>
       </div>
 </form>
 {% endblock %}

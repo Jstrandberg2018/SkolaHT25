@@ -6,20 +6,20 @@
     <h1>Välkommen till Recept-databasen!</h1>
     <p>Här kan du hitta och dela dina favorit recept.</p>
 
-    <form method="POST" action="{{ url_for('recipe') }}" aria-label="Lägg till recept" class="form-recipe">
+    <form method="POST" action="{{ url_for('recipe') }}" aria-label="Formulär för att lägga till nytt recept" class="form-recipe">
         <div class="form-group">
             <h2>Recept namn</h2>
-            <input id="recipe" class="input" type="text" name="recipe" placeholder="Ange receptnamn" required aria-required="true">
+            <input id="recipe" class="input" type="text" name="recipe" placeholder="Ange receptnamn" required aria-required="true" aria-label="Receptets namn">
         </div>
         <div class="form-group">
             <h2>Ingredienser</h2>
-            <textarea name="ingredients" id="ingredients" class="input" placeholder="Lägg in ingredienser"></textarea>
+            <textarea name="ingredients" id="ingredients" class="input" placeholder="Lägg in ingredienser" aria-label="Lista över ingredienser"></textarea>
         </div>
         <div class="form-group">
             <h2>Kalorier</h2>
-            <input name="calories" type="text" id="calories" class="input" placeholder="Ange kalorier">
+            <input name="calories" type="text" id="calories" class="input" placeholder="Ange kalorier (endast heltals siffror)" aria-label="Antal kalorier i receptet">
         </div>
-        <button type="submit" class="btn btn-add">Lägg till</button>
+        <button type="submit" class="btn btn-add" aria-label="Lägg till nytt recept i databasen">Lägg till</button>
     </form>
 
 {% endblock %}

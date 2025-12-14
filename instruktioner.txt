@@ -44,23 +44,23 @@ Implementera inloggning/registrering ✅
 Sessions och cookies ✅
 Andra användartestet ✅
 Animationer ✅
-Tillgänglighetscheck
+Tillgänglighetscheck ✅
 Mål vecka 48: Komplett funktionalitet, användartestning genomförd
 
 Vecka 49 (1-5 dec) - Fjärde fasen och delinlämning 1
-Fokus: Säkerhet, optimering och dokumentation
+Fokus: Säkerhet, optimering och dokumentation 
 Validering och felhantering ✅
 Säkerhetsaspekter (SQL-injection, hashning) ✅
-Responsiv design för mobil/desktop
-Optimera prestanda 
-Börja dokumentera designval 
+Responsiv design för mobil/desktop ✅
+Optimera prestanda ✅
+Börja dokumentera designval ✅ 
 
 Vecka 50 (8-12 dec) - Finslipning
 Fokus: Detaljer, dokumentation och presentation
-Bugfixar och edge cases
-Finslipa design och UX
-Komplett dokumentation
-Förbered presentation av projektet
+Bugfixar och edge cases ✅
+Finslipa design och UX ✅
+Komplett dokumentation ✅
+Förbered presentation av projektet ✅
 Mål vecka 50: Presentation klar, alla delar polerade
 
 Vecka 51 (15-18 dec) - Slutinlämning och presentation

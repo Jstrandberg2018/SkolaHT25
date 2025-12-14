@@ -179,6 +179,8 @@ def register():
 def admin_index():
     if not session.get('username'):
         return redirect(url_for('login'))
+    if not session.get('is_admin'):
+        return redirect(url_for('recipe'))
     
     with sqlite3.connect('app.db') as conn:
         conn.row_factory = sqlite3.Row
@@ -190,9 +192,10 @@ def admin_index():
 
 @app.route('/admin/edit/<int:user_id>', methods=['GET', 'POST'])
 def admin_edit_user(user_id):
+    if not session.get('username'):
+        return redirect(url_for('login'))
     if not session.get('is_admin'):
-        # redirect istället för render_template(url_for(...))
-        return redirect(url_for('login' if not session.get('username') else 'recipe'))
+        return redirect(url_for('recipe'))
     # använd id-hämtaren istället för get_user_by_username(user_id)
     user = get_user_by_id(user_id)
     if not user:
@@ -219,8 +222,10 @@ def admin_edit_user(user_id):
 
 @app.route('/admin/delete/<int:user_id>', methods=['POST'])
 def admin_delete_user(user_id):
+    if not session.get('username'):
+        return redirect(url_for('login'))
     if not session.get('is_admin'):
-        return redirect(url_for('login' if not session.get('username') else 'todo'))
+        return redirect(url_for('recipe'))
     # Förhindra att admin raderar sig själv
     if session.get('user_id') == user_id:
         return redirect(url_for('admin_index'))
@@ -236,6 +241,9 @@ def logout():
 
 @app.route('/recipe', methods=['GET', 'POST'])
 def recipe():
+    if not session.get('username'):
+        return redirect(url_for('login'))
+    
     if request.method == 'POST':
         title = request.form.get('recipe', '').strip()
         ingredients = request.form.get('ingredients', '').strip() or None
@@ -253,6 +261,9 @@ def recipe():
 
 @app.route('/recipe_collection/edit/<int:recipe_id>', methods=['GET', 'POST'])
 def edit_recipe(recipe_id):
+    if not session.get('username'):
+        return redirect(url_for('login'))
+    
     # Hämta receptet, visa formulär eller spara ändringar
     r = get_recipe_by_id(recipe_id)
     if not r:
@@ -274,12 +285,18 @@ def edit_recipe(recipe_id):
 
 @app.route('/delete/<int:recipe_id>', methods=['POST'])
 def delete_recipe(recipe_id):
+    if not session.get('username'):
+        return redirect(url_for('login'))
+    
     # Säg till DB att ta bort och gå tillbaka till collection
     delete_recipe_db(recipe_id)
     return redirect(url_for('recipe_collection'))
 
 @app.route('/recipe_collection')
 def recipe_collection():
+    if not session.get('username'):
+        return redirect(url_for('login'))
+    
     # visa alla recept i collection (template: recipe_collection.html)
     recipes = get_all_recipes()
     return render_template('recipe_collection.html', recipes=recipes)

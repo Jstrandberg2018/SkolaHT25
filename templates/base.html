@@ -13,22 +13,21 @@
         <nav class="main-nav">
             <div class="nav-inner">
                 <div class="nav-list">
-                    <a class="nav-link" href="{{ url_for('index') }}">Hem</a>
-                    <a class="nav-link" href="{{ url_for('recipe_collection') }}">Recept</a>
-                    <!-- återställ dina övriga nav-element här -->
+                <a class="nav-link" href="{{ url_for('index') }}" aria-label="Gå till startsidan">Hem</a>
+                <a class="nav-link" href="{{ url_for('recipe_collection') }}" aria-label="Visa receptsamling">Recept</a>
                 </div>
 
                 <div class="left">
                     {% if session.get('username') %}
-                        <span>Inloggad som: {{ session.get('username') }}</span>
-                        <a class="nav-link" href="{{ url_for('logout') }}">Logga ut</a>
+                        <span aria-label="Inloggad användare">Inloggad som: {{ session.get('username') }}</span>
+                        <a class="nav-link" href="{{ url_for('logout') }}" aria-label="Logga ut från systemet">Logga ut</a>
                     {% else %}
-                        <a class="nav-link" href="{{ url_for('login') }}">Logga in</a>
-                        <a class="nav-link" href="{{ url_for('register') }}">Registrera</a>
+                        <a class="nav-link" href="{{ url_for('login') }}" aria-label="Logga in på systemet">Logga in</a>
+                        <a class="nav-link" href="{{ url_for('register') }}" aria-label="Registrera nytt konto">Registrera</a>
                     {% endif %}
 
                     {% if session.get('is_admin') %}
-                        <a class="nav-link" href="{{ url_for('admin_index') }}">Admin</a>
+                        <a class="nav-link" href="{{ url_for('admin_index') }}" aria-label="Öppna administratörspanel">Admin</a>
                     {% endif %}
                 </div>
             </div>

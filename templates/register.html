@@ -5,17 +5,17 @@
 {% block content %}
 <div class="card card-wide">
   <h2>Skapa konto</h2>
-  <form method="POST" class="form-inline" style="flex-direction:column;gap:12px;">
+  <form method="POST" class="form-inline" style="flex-direction:column;gap:12px;" aria-label="Registreringsformulär">
     <label for="username" style="margin:0;font-weight:600;">Användarnamn</label>
-    <input id="username" class="input" type="text" name="username" placeholder="Användarnamn" required aria-required="true">
+    <input id="username" class="input" type="text" name="username" placeholder="Användarnamn" required aria-required="true" aria-label="Ange användarnamn">
     <label for="password" style="margin:0;font-weight:600;">Lösenord</label>
-    <input id="password" class="input" type="password" name="password" placeholder="Lösenord" required aria-required="true">
+    <input id="password" class="input" type="password" name="password" placeholder="Lösenord" required aria-required="true" aria-label="Ange lösenord">
     <label style="display:inline-flex;align-items:center;gap:8px;">
-      <input type="checkbox" name="admin" value="1"> Admin
+      <input type="checkbox" name="admin" value="1" aria-label="Ge användaren administratörsrättigheter"> Admin
     </label>
     <div style="display:flex;gap:8px;align-items:center;">
-      <button type="submit" class="btn">Skapa</button>
-      <a class="btn" href="{{ url_for('login') }}">Tillbaka</a>
+      <button type="submit" class="btn" aria-label="Skapa nytt användarkonto">Skapa</button>
+      <a class="btn" href="{{ url_for('login') }}" aria-label="Gå tillbaka till inloggningssidan">Tillbaka</a>
     </div>
   </form>
 </div>
