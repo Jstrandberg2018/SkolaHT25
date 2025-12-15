@@ -2,16 +2,17 @@
 
 from flask import Flask, render_template, flash, url_for, session, redirect, request, jsonify
 import sqlite3
+import secrets
 from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
-app.secret_key = 'hemlig_nyckel' #ändra till mer säker senare
+app.secret_key = secrets.token_hex(32)  # Genererar säker 64-teckens hex-nyckel
 
 def create_tables():
     with sqlite3.connect('app.db') as conn:
         cursor = conn.cursor()
         
-        cursor.execute("""
+        cursor.execute(""" 
                     CREATE TABLE IF NOT EXISTS users (
                         id INTEGER PRIMARY KEY AUTOINCREMENT,
                         username TEXT NOT NULL UNIQUE,
@@ -209,14 +210,16 @@ def admin_edit_user(user_id):
         if username:
             with sqlite3.connect('app.db') as conn:
                 conn.row_factory = sqlite3.Row
+                cursor = conn.cursor()
             
                 if password:
                     # kolumnen heter 'admin' i databasen, inte 'is_admin'
-                    conn.execute('UPDATE users SET username = ?, password = ?, admin = ? WHERE id = ?', 
+                    cursor.execute('UPDATE users SET username = ?, password = ?, admin = ? WHERE id = ?', 
                                 (username, hash_password(password), is_admin, user_id))
                 else:
-                    conn.execute('UPDATE users SET username = ?, admin = ? WHERE id = ?', 
+                    cursor.execute('UPDATE users SET username = ?, admin = ? WHERE id = ?', 
                                 (username, is_admin, user_id))
+                conn.commit()
             return redirect(url_for('admin_index'))
     return render_template('admin_edit_user.html', user=user)
 
@@ -231,7 +234,9 @@ def admin_delete_user(user_id):
         return redirect(url_for('admin_index'))
     
     with sqlite3.connect('app.db') as conn:
-        conn.execute('DELETE FROM users WHERE id = ?', (user_id,))
+        cursor = conn.cursor()
+        cursor.execute('DELETE FROM users WHERE id = ?', (user_id,))
+        conn.commit()
     return redirect(url_for('admin_index'))
 
 @app.route('/logout')
