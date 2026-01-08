@@ -1,110 +1,119 @@
 :root {
-    --primary-color: #2E8B57;
-    --secondary-color: #E8F5E9;
-    --third-color: #66BB6A;
-    --forth-color: #1B5E20;
+    --primary-color: #2E8B57;      
+    --secondary-color: #E8F5E9;    
+    --third-color: #66BB6A;        
+    --forth-color: #1B5E20;       
     --font-family: 'Arial, sans-serif';
 
-    /* Extra variabler för återanvändning */
-    --bg: var(--secondary-color);
-    --text-color: #16331f;
-    --muted: #466c53;
-    --accent: #ffd54f;
-    --danger: #d32f2f;
-    --shadow: 0 6px 18px rgba(27,94,32,0.12);
-    --radius: 8px;
-    --gap: 12px;
+    /* Semantiska variabler för enklare användning */
+    --bg: var(--secondary-color);  
+    --text-color: #16331f;         
+    --muted: #466c53;              
+    --accent: #ffd54f;          
+    --danger: #d32f2f;         
+    --shadow: 0 6px 18px rgba(27,94,32,0.12);  
+    --radius: 8px;                 
+    --gap: 12px;                  
 
-    /* Nya variabler för nav / knappar */
+    /* Navigations- och knappspecifika färger */
     --nav-bg: var(--primary-color);
-    --btn-bg: var(--third-color);        /* något ljusare än nav */
-    --btn-hover: #4ea05a;               /* hover: mörkare än btn men ljusare än nav */
-    --btn-contrast: #ffffff;
+    --btn-bg: var(--third-color);        
+    --btn-hover: #4ea05a;               
+    --btn-contrast: #ffffff;           
 }
 
-/* Reset / layout */
+
 html, body {
-    height: 100%;
+    height: 100%;              /* Full höjd för sticky footer-layout */
     margin: 0;
-    background: var(--bg);
-    color: var(--text-color);
+    background: var(--bg);     
+    color: var(--text-color); 
     font-family: var(--font-family);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
 }
 
+/* Standardtextstorlek för stycken */
 p {
     font-size: 19px;
 }
 
+/* Ta bort standardstilar från länkar */
 a { 
-    color: inherit; 
-    text-decoration: none; 
+    color: inherit;           /* Ärv textfärg från förälder */
+    text-decoration: none;    /* Ingen understrykning */
 }
 
-/* Container (centrerar innehåll inom fullbredd header) */
+/* Centrerar innehåll med maxbredd och sidopadding */
 .container {
-    max-width: 980px;
-    margin: 0 auto;
-    padding: 0 16px;
+    max-width: 980px;         /* Maximal bredd för läsbarhet */
+    margin: 0 auto;           /* Centrerar horisontellt */
+    padding: 0 16px;          /* Sidopadding */
     box-sizing: border-box;
 }
 
-/* Låt footern ligga längst ner */
+/* Applikationens huvudcontainer - möjliggör sticky footer */
 .app {
-    min-height: 100vh;
+    min-height: 100vh;        /* Minst full skärmhöjd */
     display: flex;
-    flex-direction: column;
+    flex-direction: column;   /* Vertikal layout */
 }
 
-/* huvud innehåll expanderar och pressar footern till botten */
+/* Huvudinnehållsområdet - expanderar för att fylla tillgängligt utrymme */
 .site-main {
-    flex: 1 0 auto;
+    flex: 1 0 auto;           /* Växer för att pressa footer till botten */
     display: block;
     min-height: 0;
 }
 
-/* kompakt, diskret header */
+/* Navigationsbar med full bredd */
 .main-nav {
     width: 100%;
-    background: var(--nav-bg);
+    background: var(--nav-bg);  
     color: white;
     padding: 12px 0;
-    box-shadow: var(--shadow);
+    box-shadow: var(--shadow); 
     border-radius: 0;
 }
 
-/* inre container för nav-länkar (behåller centrerad innehållbredd) */
+/* Inre container för navigationsinnehåll - centrerad med maxbredd */
 .nav-inner {
     max-width: 980px;
-    margin: 0 auto;
+    margin: 0 auto;             /* Centrerar innehållet */
     padding: 0 16px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-between;  /* Länkar vänster, actions höger */
     gap: 12px;
 }
 
-/* nav innehåll centrerat inom container i base.html */
+/* Flexbox-layout för nav-container */
 .main-nav.container {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-/* nav-list / left / actions */
-.nav-list { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
-.left, .nav-actions { display:flex; gap:8px; align-items:center; }
+/* Kompakta flex-layouter för navigationsgrupper */
+.nav-list { 
+    display:flex; 
+    gap:10px; 
+    align-items:center; 
+    flex-wrap:wrap; 
+}
+.left, .nav-actions { 
+    display:flex; 
+    gap:8px; 
+    align-items:center; 
+}
 
-/* lista till vänster (länkar) */
+/* Vänster navigationslista - försöker hålla en rad */
 .nav-list {
     display: flex;
     gap: 10px;
     align-items: center;
-    flex-wrap: nowrap; /* försök håll dem i en rad */
+    flex-wrap: nowrap;          /* Undvik radbrytning om möjligt */
 }
 
-/* actions till höger */
+/* Höger actions-område (logga ut, etc) */
 .nav-actions {
     display: flex;
     gap: 8px;
@@ -112,68 +121,70 @@ a {
     flex-wrap: nowrap;
 }
 
-/* undvik att knappar bryts, visa horisontell scroll vid overflow */
+/* Möjliggör horisontell scrollning vid overflow istället för radbrytning */
 .nav-list, .nav-actions {
     white-space: nowrap;
     overflow-x: auto;
 }
 
-/* Diskreta men synliga länkar */
+/* Navigeringslänkar med subtil ram och hover-effekt */
 .nav-link {
     padding: 12px 18px;
     background: transparent;
     color: white;
     border-radius: 6px;
-    border: 3px solid rgba(255,255,255,0.08);
+    border: 3px solid rgba(255,255,255,0.08);  /* Diskret vit ram */
     font-size: 18px;
     transition: transform 0.12s cubic-bezier(.2,.9,.2,1), background 0.12s, box-shadow 0.12s;
 }
 
+/* Hover-effekt: länk lyfts upp och får bakgrund */
 .nav-link:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 14px 30px rgba(27,94,32,0.18);
-    background: rgba(255,255,255,0.06);
+    transform: translateY(-6px);                /* Lyfter länken */
+    box-shadow: 0 14px 30px rgba(27,94,32,0.18);  /* Starkare skugga */
+    background: rgba(255,255,255,0.06);         /* Ljus bakgrund */
 }
 
+/* Standard textstorlek för span-element */
 span {
     font-size: 18px;
 }
 
-/* Reusable utilities */
+/* Flexbox-rad med automatisk wrapping */
 .row {
     display: flex;
-    gap: var(--gap);
+    gap: var(--gap);           
     align-items: center;
-    flex-wrap: wrap;
+    flex-wrap: wrap;            /* Bryts till nya rader vid behov */
 }
 
+/* Innehållskort med vit bakgrund och skugga */
 .card {
     background: white;
-    border-radius: var(--radius);
+    border-radius: var(--radius);  /* Rundade hörn */
     padding: 16px 18px;
-    box-shadow: var(--shadow);
-    border: 1px solid rgba(0,0,0,0.04);
+    box-shadow: var(--shadow);     /* Skugga för djup */
+    border: 1px solid rgba(0,0,0,0.04);  /* Subtil ram */
 }
 
-/* Buttons: använder btn-bg och btn-hover */
+/* Grundläggande knappstil - används för alla knappar i appen */
 .btn {
     cursor: pointer;
     display: inline-flex;
-    gap: 8px;
+    gap: 8px;                      /* Mellanrum mellan ikon och text */
     align-items: center;
     justify-content: center;
     padding: 12px 20px;
     border-radius: 6px;
     border: none;
-    color: var(--btn-contrast);
-    background: var(--btn-bg);
-    transition: transform 0.08s, background 0.12s, box-shadow 0.12s;
+    color: var(--btn-contrast);    /* Vit text */
+    background: var(--btn-bg);     /* Ljusgrön bakgrund */
     font-weight: 600;
     font-family: var(--font-family);
     font-size: 1.05rem;
 }
 
-/* Gör button-element (inte bara <a>) liknande <a> med class .btn */
+/* Ser till att button-element ser likadana ut som a-element med .btn */
 button.btn {
     border: none;
     padding: 12px 20px;
@@ -181,109 +192,120 @@ button.btn {
     font-family: var(--font-family);
 }
 
+/* Grundläggande hover-effekt för knappar */
 .btn:hover { 
-    background: var(--btn-hover); 
-    transform: translateY(-2px); 
+    background: var(--btn-hover);     /* Mörkare grön vid hover */
+    transform: translateY(-2px);      /* Lyfts lätt */
     box-shadow: 0 6px 18px rgba(0,0,0,0.06); 
 }
 
-/* knapp-anim: lyfter och får starkare skugga vid hover (så de "hoppar ut") */
+/* Förbättrad hover-animation - lyfter mer och får större skugga */
 .btn {
     transition: transform 0.12s cubic-bezier(.2,.9,.2,1), background 0.12s, box-shadow 0.12s;
 }
 
 .btn:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 14px 30px rgba(27,94,32,0.18);
+    transform: translateY(-6px);      /* Tydligare lyft */
+    box-shadow: 0 14px 30px rgba(27,94,32,0.18);  /* Dramatisk skugga */
 }
 
-/* Särskild stil för 'Lägg till' — rund och matchar inputhöjd */
+/* Layout för formulär med tilläggsknapp (t.ex. ingredienser) */
 .form-add {
     display: flex;
     gap: 8px;
-    align-items: center;
-}
-.form-add .input { 
-    flex: 1; 
-    min-width: 0; 
+    align-items: center;        /* Knapp och input på samma rad */
 }
 
+.form-add .input { 
+    flex: 1;                    /* Input tar allt tillgängligt utrymme */
+    min-width: 0;               /* Förhindrar overflow */
+}
+
+/* Rund tilläggsknapp som matchar inputhöjd */
 .btn-add {
-    border-radius: 9999px;
+    border-radius: 9999px;      /* Perfekt rund */
     width: 100%;
-    min-height: 48px;  
+    min-height: 48px;           /* Matchar input-höjd */
     font-size: 20px;
     display: inline-flex;
     align-items: center;
 }
 
-/* Receptformulär — vertikal layout med grupper */
+/* Huvudcontainer för receptformulär - vertikal stack */
 .form-recipe {
     display: flex;
-    flex-direction: column;
-    gap: 20px;
+    flex-direction: column;     /* Alla fält staplas vertikalt */
+    gap: 20px;                  /* Mellanrum mellan sektioner */
     margin: 20px 0;
 }
 
+/* Formulärgrupp - innehåller rubrik och tillhörande fält */
 .form-recipe .form-group {
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
 
+/* Rubrik för varje formulärsektion */
 .form-recipe .form-group h2 {
     margin: 0;
     font-size: 1.6rem;
-    color: var(--muted);
+    color: var(--muted);        /* Dämpad färg */
     font-weight: 600;
 }
 
+/* Inputfält och textareas i receptformuläret */
 .form-recipe .input,
 .form-recipe input,
 .form-recipe textarea {
-    width: 100%;
+    width: 100%;                /* Full bredd */
     box-sizing: border-box;
     padding: 16px 18px;
     border-radius: 6px;
-    border: 1px solid rgba(0,0,0,0.08);
+    border: 1px solid rgba(0,0,0,0.08);  /* Subtil ram */
     background: #fff;
     color: var(--text-color);
     font-family: var(--font-family);
     font-size: 20px;
 }
 
+/* Textarea med justerbar höjd */
 .form-recipe textarea {
-    resize: vertical;
-    min-height: 100px;
+    resize: vertical;           /* Endast vertikal storleksändring */
+    min-height: 100px;          /* Minimi höjd */
 }
 
+/* Tilläggsknapp i receptformulär */
 .form-recipe .btn-add {
-    align-self: flex-start;
-    border-radius: 6px;
+    align-self: flex-start;     /* Justerad till vänster */
+    border-radius: 6px;         /* Fyrkantigare än vanliga btn-add */
     padding: 10px 20px;
     margin-top: 10px;
 }
 
+/* Placeholder-textstorlek */
 ::placeholder {
     font-size: 18px;
 }
 
-/* Forms */
+/* Nollställ formulärmarginaler */
 form { 
     margin: 0; 
 }
 
+/* Inline-formulär - element på en horisontell rad */
 .form-inline { 
     display: flex; 
     gap: 8px; 
     align-items: center;
-    flex-wrap: wrap;
+    flex-wrap: wrap;            /* Bryt till ny rad vid behov */
 }
 
+/* Responsiv layout för inline-formulär på små skärmar */
 @media (max-width: 720px) {
     .form-inline {
-        flex-direction: column;
-        align-items: stretch;
+        flex-direction: column;  /* Stapla vertikalt */
+        align-items: stretch;    /* Full bredd på alla element */
         gap: 12px;
     }
 
@@ -301,39 +323,40 @@ form {
     }
 }
 
+/* Standardstilar för inputfält */
 .input, input[type="text"], input[type="password"], textarea {
     padding: 16px 18px;
     border-radius: 8px;
-    border: 1px solid rgba(0,0,0,0.08);
+    border: 1px solid rgba(0,0,0,0.08);  /* Ljusgrå ram */
     background: #fff;
     color: var(--text-color);
     box-sizing: border-box;
 }
 
-/* Footer: primär färg och innehåll centrerat */
 footer {
-    background: var(--nav-bg);
+    background: var(--nav-bg);  /* Samma färg som navigation */
     padding: 16px 0;
     text-align: center;
     color: white;
-    margin-top: auto;
+    margin-top: auto;           /* Pressar sig till botten */
     width: 100%;
-    flex-shrink: 0;
+    flex-shrink: 0;             /* Förhindrar att den krymper */
 }
 
-/* Admin: professionell tabell + radlayout för användare */
+/* Huvudcontainer för admin-tabell */
 .admin-table {
     width: 100%;
     max-width: 100%;
-    border-collapse: collapse;
+    border-collapse: collapse;  /* Inga dubbla ramar */
     background: white;
     border-radius: 8px;
-    overflow-x: auto;
+    overflow-x: auto;           /* Horisontell scroll vid behov */
     box-shadow: var(--shadow);
-    table-layout: fixed;
+    table-layout: fixed;        /* Fast kolumnbredd */
     box-sizing: border-box;
 }
 
+/* Tabellhuvud med gradient-bakgrund */
 .admin-table thead th {
     background: linear-gradient(180deg, var(--nav-bg), color-mix(in srgb, var(--nav-bg) 85%, black 10%));
     color: white;
@@ -343,70 +366,74 @@ footer {
     font-size: 0.95rem;
 }
 
+/* Tabellrader med subtil separator */
 .admin-table tbody tr {
     border-bottom: 1px solid rgba(0,0,0,0.04);
 }
 
+/* Tabellceller */
 .admin-table td {
     padding: 10px 14px;
-    vertical-align: middle;
+    vertical-align: middle;     /* Centrerar innehåll vertikalt */
     color: var(--text-color);
 }
 
-/* admin: ge ID / Användarnamn / Admin-kolumner lätt grön bakgrund i raderna */
+/* Ljusgrön bakgrund för datarader (ID, Användarnamn, Admin) */
 .admin-table tbody td {
     background: linear-gradient(180deg, rgba(230,250,238,0.9), rgba(245,255,250,0.9));
 }
 
-/* Admin actions och layout: element som hör tillsammans ligger på rad */
+/* Admin actions - horisontell layout för redigera/radera-knappar */
 .admin-actions {
     display: flex;
     gap: 8px;
     align-items: center;
 }
 
+/* Användarkort i admin-listvyn */
 .admin-list .user-card {
     display: flex;
-    justify-content: space-between; /* element som hör ihop radvis */
+    justify-content: space-between;  /* Info vänster, actions höger */
     align-items: center;
     padding: 10px;
     background: white;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.04);
 }
+
+/* Mellanrum mellan användarkort */
 .admin-list .user-card + .user-card { 
     margin-top: 10px; 
 }
 
-/* admin: gör action-knappar lika stilade som övriga .btn */
+/* Enhetlig stil för action-knappar i admin-vy */
 .admin-actions a.btn, .admin-actions button.btn {
     display: inline-flex;
     gap: 8px;
     align-items: center;
     justify-content: center;
-    min-width: 85px;
+    min-width: 85px;            /* Fast bredd för enhetlighet */
     width: 85px;
     box-sizing: border-box;
 }
 
-/* gör tabellens action-cell snyggare (inga brutna element) */
+/* Förbättrad layout för action-kolumn i tabell */
 .admin-table td .admin-actions {
     gap: 8px;
     display: flex;
     align-items: center;
 }
 
-/* Bredd-variant för formulärkort som ska fylla raden bättre */
+/* Bredare kort för huvudformulär - centrerade på sidan */
 .card-wide {
-    /* större bredd och centrerad */
-    width: clamp(420px, 75vw, 720px);
+    width: clamp(420px, 75vw, 720px);  /* Flexibel bredd */
     max-width: 100%;
-    margin: 40px auto;       /* centrerar kortet horisontellt */
+    margin: 40px auto;                  /* Centrerar kortet */
     padding: 32px;
     box-sizing: border-box;
 }
 
-/* Se till att formulärfält fyller cardens bredd */
+/* Inputfält i breda kort tar full bredd */
 .card-wide .input,
 .card-wide form input,
 .card-wide form textarea {
@@ -414,75 +441,99 @@ footer {
     box-sizing: border-box;
 }
 
-/* Grupp som håller knappar — behåll horisontell layout tills små skärmar */
+/* Knappgrupp i breda kort - horisontell layout */
 .card-wide .form-inline {
     display: flex;
     gap: 12px;
     align-items: center;
 }
 
-/* På små skärmar staplas formulär och knappar vertikalt och får full bredd */
+/* Responsivitet för breda kort på små skärmar */
 @media (max-width: 720px) {
     .card-wide {
-        width: calc(100% - 32px); /* lämna lite luft mot kanterna */
+        width: calc(100% - 32px);    /* Nästan full bredd med lite luft */
         padding: 14px;
     }
+    /* Stapla formulärelement vertikalt */
     .card-wide .form-inline {
         flex-direction: column;
         align-items: stretch;
     }
+    /* Knappar får full bredd */
     .card-wide .form-inline .btn,
     .card-wide .btn-add {
         width: 100%;
     }
 }
 
-/* mindre skärmar */
 @media (max-width: 720px) {
-    .main-nav.container { flex-direction: column; gap:8px; align-items:flex-start; }
-    .form-add { flex-direction: column; align-items:stretch; }
-    .btn-add { width: 100%; min-height: 44px; }
-    .nav-inner { padding-left: 12px; padding-right: 12px; }
-    .nav-list, .left { gap: 8px; }
+    /* Stapla navigationselement vertikalt */
+    .main-nav.container { 
+        flex-direction: column; 
+        gap:8px; 
+        align-items:flex-start; 
+    }
+    /* Stapla formulär för ingredienser vertikalt */
+    .form-add { 
+        flex-direction: column; 
+        align-items:stretch; 
+    }
+    /* Full bredd på tilläggsknappar */
+    .btn-add { 
+        width: 100%; 
+        min-height: 44px; 
+    }
+    /* Mindre sidopadding i nav */
+    .nav-inner { 
+        padding-left: 12px; 
+        padding-right: 12px; 
+    }
+    /* Mindre gap i navigationslistan */
+    .nav-list, .left { 
+        gap: 8px; 
+    }
 }
 
-/* återställ site-main så footer inte pressas ner */
+/* Återställ site-main för korrekt layout */
 .site-main {
     flex: none;
     display: block;
 }
 
-/* responsive: om det är väldigt trångt, tillåt wrap med liten radning */
+/* Tillåt wrapping på mycket små skärmar */
 @media (max-width: 420px) {
-    .nav-list, .nav-actions { flex-wrap: wrap; gap: 6px; }
+    .nav-list, .nav-actions { 
+        flex-wrap: wrap; 
+        gap: 6px; 
+    }
 }
 
-/* Se till att main innehållet ligger till vänster (överskriver .container centring för main) */
+/* Vänsterställt innehåll utan centrering */
 .site-main.container.content-left {
     margin: 0;
-    padding: 16px;   /* padding runt hela innehållet */
-    max-width: 100%;     /* full bredd */
+    padding: 16px;              /* Padding runt allt innehåll */
+    max-width: 100%;            /* Full bredd */
     width: 100%;
     box-sizing: border-box;
 }
 
-/* Recipe list: gör korten fullbredd / responsiva och öka textstorlek */
+/* Grid-layout för receptkort - anpassar automatiskt kolumner */
 ul.recipe-list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));  /* Automatisk kolumnplacering */
     gap: var(--gap);
     padding: 0;
     margin: 0;
-    list-style: none;
+    list-style: none;           /* Tar bort listpunkter */
     width: 100%;
     box-sizing: border-box;
 }
 
+/* Enskilt receptkort med grid-layout */
 li[data-id] {
-    /* All content on one row, buttons below */
     display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: auto auto;
+    grid-template-columns: 1fr;  /* En kolumn */
+    grid-template-rows: auto auto;  /* Två rader (innehåll + knappar) */
     gap: 12px;
     width: 100%;
     box-sizing: border-box;
@@ -490,10 +541,10 @@ li[data-id] {
     background: #fff;
     border-radius: var(--radius);
     box-shadow: var(--shadow);
-    min-width: 0; /* förhindrar overflow */
+    min-width: 0;                /* Förhindrar overflow-problem */
 }
 
-/* Titeln och innehållet görs större och mer läsbart */
+/* Recepttitel - flexibel layout med större text */
 .recipe-title {
     display: flex;
     flex-wrap: wrap;
@@ -506,6 +557,7 @@ li[data-id] {
     font-family: var(--font-family);
 }
 
+/* Enhetlig stil för barn-element i titeln */
 .recipe-title > * {
     margin: 0;
     font-size: 1.1rem;
@@ -513,18 +565,21 @@ li[data-id] {
     font-family: var(--font-family);
 }
 
+/* Ingredienslista - framhävd text */
 .recipe-ingredients { 
     font-size: 1.1rem;
     font-weight: 600;
     font-family: var(--font-family);
 }
 
+/* Kalorier - framhävd text */
 .recipe-calories { 
     font-size: 1.1rem;
     font-weight: 600;
     font-family: var(--font-family);
 }
 
+/* Action-knappar (redigera/radera) i receptkort */
 .recipe-actions {
     display: flex;
     gap: 10px;
@@ -532,145 +587,168 @@ li[data-id] {
     justify-content: flex-start;
 }
 
+/* Standardtext och metainformation i receptkort */
 li[data-id] p,
 li[data-id] .meta {
     font-size: 1rem;
-    color: var(--muted);
+    color: var(--muted);         /* Dämpad färg för mindre viktig info */
 }
 
-/* Mobile: stapla och fyll bredden, ännu större text för läsbarhet */
+/* Mobilanpassning för receptlista - enkolumnslayout */
 @media (max-width: 720px) {
+    /* En kolumn för alla receptkort */
     ul.recipe-list {
         grid-template-columns: 1fr;
         gap: 10px;
     }
 
+    /* Mindre padding i receptkort */
     li[data-id] {
         padding: 14px;
     }
 
+    /* Mindre textstorlek på titel */
     .recipe-title {
         font-size: 1.15rem;
     }
 
+    /* Mindre textstorlek för metainfo */
     li[data-id] p,
     li[data-id] .meta {
         font-size: 0.98rem;
     }
 
+    /* Extra utrymme ovanför action-knappar */
     .recipe-actions {
         margin-top: 8px;
         justify-content: flex-start;
     }
 }
 
-/* -------------------------
-   Responsiva breakpoints
-   Large (>=1200px), Desktop (992-1199px),
-   Tablet (720-991px), Mobile (<720px)
-   ------------------------- */
-
+/* Stora skärmar (>=1200px) - Maximalt utrymme och optimerad layout */
 @media (min-width: 1200px) {
+    /* Bredare container för stora skärmar */
     .container { 
         max-width: 1200px; 
         padding: 0 24px; 
     }
     
+    /* Bredare navigationsinnehåll */
     .nav-inner { 
         max-width: 1200px; 
     }
     
+    /* Större navigationslänkar */
     .nav-link { 
         font-size: 20px; 
         padding: 14px 20px; 
     }
     
+    /* Mer fokuserad bredd för formulärkort */
     .card-wide { 
         width: clamp(420px, 45%, 980px); 
     }
     
+    /* Responsivt grid för receptkort */
     ul.recipe-list {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
         gap: 20px;
     }
 
+    /* Större padding i receptkort */
     li[data-id] { 
         padding: 18px 20px; 
     }
 }
 
+/* Desktop (992-1199px) - Standard desktop-layout */
 @media (min-width: 992px) and (max-width: 1199px) {
+    /* Standardbredd för desktop */
     .container { 
         max-width: 992px; 
         padding: 0 20px; 
     }
     
+    /* Grid med mindre gap */
     ul.recipe-list {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
         gap: 18px;
     }
 
+    /* Lätt mindre navigationslänkar */
     .nav-link { 
         font-size: 18px; 
         padding: 12px 16px; 
     }
 }
 
+/* Surfplattor (720-991px) - Anpassad för surfplattor */
 @media (min-width: 720px) and (max-width: 991px) {
+    /* Begränsad bredd för tablets */
     .container { 
         max-width: 720px; 
         padding: 0 18px; 
     }
     
+    /* Mindre receptkort med mindre gap */
     ul.recipe-list {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         gap: 14px;
     }
     
+    /* Navigationen kan brytas vid behov */
     .nav-inner { 
         flex-wrap: wrap; 
     }
     
+    /* Kompaktare navigationslänkar */
     .nav-link { 
-        font-size: 17px; padding: 10px 14px; 
+        font-size: 17px; 
+        padding: 10px 14px; 
     }
     
+    /* Full bredd för formulärkort */
     .card-wide { 
         width: 100%; 
     }
 }
 
+/* Mobil (<720px) - Fullständig mobilanpassning */
 @media (max-width: 719px) {
+    /* Minimal padding för mobila enheter */
     .container { 
         padding: 0 12px; 
     }
     
+    /* Enkolumnslayout för receptkort */
     ul.recipe-list {
         display: grid;
         grid-template-columns: 1fr;
         gap: 10px;
     }
     
-    /* Nav: stapla och gör länkar fullbredd på små skärmar */
+    /* NAVIGATION - Vertikal layout för mobil */
     .nav-inner { 
-        flex-direction: column; 
-        align-items: stretch; 
+        flex-direction: column;    /* Stapla vertikalt */
+        align-items: stretch;      /* Full bredd på element */
         gap: 8px; 
     }
 
+    /* Navigationslister och actions staplas vertikalt */
     .nav-list, .left, .nav-actions { 
-        width: 100%; 
+        width: 100%;               /* Full bredd */
         display: flex; 
-        flex-direction: column; 
+        flex-direction: column;    /* Vertikal layout */
         gap: 8px; 
-        white-space: normal; 
+        white-space: normal;       /* Tillåt radbrytning */
         overflow: visible;
         align-items: stretch;
     }
     
+    /* Navigationslänkar tar full bredd */
     .nav-link { 
         display: block; 
         width: 100%; 
@@ -678,44 +756,55 @@ li[data-id] .meta {
         font-size: 16px; 
         box-sizing: border-box; 
     }
-    /* Dölj 'Inloggad som:' för att spara utrymme på små enheter */
-    .left > span { display: none; }
+    
+    /* Dölj "Inloggad som:"-text för att spara utrymme */
+    .left > span { 
+        display: none; 
+    }
 
-    .form-recipe .input, .form-recipe input, .form-recipe textarea {
+    /* Formulär - Mindre padding och textstorlek */
+    .form-recipe .input, 
+    .form-recipe input, 
+    .form-recipe textarea {
         padding: 12px;
         font-size: 16px;
     }
 
+    /* Mindre knappar för mobil */
     .btn { 
         padding: 10px 12px; 
         font-size: 0.95rem; 
     }
 
-    /* Admin table: gör responsiv på små skärmar */
+    /* Admin-tabell - Horisontell scroll och kompakt layout */
     .admin-table {
         font-size: 0.85rem;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
+        overflow-x: auto;          /* Horisontell scroll vid behov */
+        -webkit-overflow-scrolling: touch;  /* Smooth scrolling på iOS */
     }
 
+    /* Flexibel kolumnbredd i tabellen */
     .admin-table table {
         table-layout: auto;
         min-width: 100%;
     }
 
+    /* Kompakt tabelrhuvud */
     .admin-table thead th {
         padding: 8px 6px;
         font-size: 0.8rem;
-        white-space: nowrap;
+        white-space: nowrap;       /* Inga radbrytningar i huvud */
     }
 
+    /* Kompakta tabellceller med ordbrytning */
     .admin-table td {
         padding: 8px 6px;
         font-size: 0.85rem;
-        white-space: normal;
-        word-break: break-word;
+        white-space: normal;       /* Tillåt radbrytning */
+        word-break: break-word;    /* Bryt långa ord */
     }
 
+    /* Admin-knappar staplas vertikalt på mobil */
     .admin-actions {
         display: flex;
         flex-direction: column;
@@ -723,6 +812,7 @@ li[data-id] .meta {
         width: 100%;
     }
 
+    /* Admin-knappar tar full bredd */
     .admin-actions .btn,
     .admin-actions a.btn,
     .admin-actions button.btn {
