@@ -7,25 +7,34 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+    {# Huvudcontainer för hela applikationen möjliggör sticky footer #}
     <div class="app">
+        {# Navigationsbar visas på alla sidor utom där hide_nav är satt till true #}
         {% if not hide_nav %}
-        <!-- fullbredd nav med centrerad inre container -->
+        {# Fullbredd nav med centrerad inre container #}
         <nav class="main-nav">
+            {# Inre container som centrerar navigationens innehåll #}
             <div class="nav-inner">
+                {# Vänster del av navigationen = primära länkar #}
                 <div class="nav-list">
                 <a class="nav-link" href="{{ url_for('index') }}" aria-label="Gå till startsidan">Hem</a>
                 <a class="nav-link" href="{{ url_for('recipe_collection') }}" aria-label="Visa receptsamling">Recept</a>
                 </div>
 
+                {# Höger del av navigationen = användaråtgärder och inloggningsstatus #}
                 <div class="left">
+                    {# Kontrollerar om användaren är inloggad #}
                     {% if session.get('username') %}
+                        {# Visar användarnamnet för inloggad användare #}
                         <span aria-label="Inloggad användare">Inloggad som: {{ session.get('username') }}</span>
                         <a class="nav-link" href="{{ url_for('logout') }}" aria-label="Logga ut från systemet">Logga ut</a>
                     {% else %}
+                        {# Länkar för ej inloggade användare #}
                         <a class="nav-link" href="{{ url_for('login') }}" aria-label="Logga in på systemet">Logga in</a>
                         <a class="nav-link" href="{{ url_for('register') }}" aria-label="Registrera nytt konto">Registrera</a>
                     {% endif %}
 
+                    {# Visar Admin-länk endast om användaren har administratörsrättigheter #}
                     {% if session.get('is_admin') %}
                         <a class="nav-link" href="{{ url_for('admin_index') }}" aria-label="Öppna administratörspanel">Admin</a>
                     {% endif %}
@@ -34,11 +43,13 @@
         </nav>
         {% endif %}
 
-        <!-- Main content: använd denna wrapper så footer alltid hamnar längst ner -->
+        {# Använd denna wrapper så footer alltid hamnar längst ner #}
         <main class="site-main container content-left">
+            {# Block där varje sida kan lägga sitt unika innehåll #}
             {% block content %}{% endblock %}
         </main>
 
+        {# Footer visas på alla sidor utom där hide_nav är satt till true #}
         {% if not hide_nav %}
         <footer>
             &copy; Projekt 2025
@@ -46,6 +57,7 @@
         {% endif %}
     </div>
 
+    {# Länk till JavaScript-filen för interaktiva funktioner #}
     <script src="{{ url_for('static', filename='script.js')}}"></script>
 </body>
 </html>

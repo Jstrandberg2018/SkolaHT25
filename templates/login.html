@@ -3,13 +3,23 @@
 {% block title %}Logga in{% endblock %}
 
 {% block content %}
+{# Stort kort som innehåller inloggningsformuläret #}
 <div class="card card-wide">
   <h2>Logga in</h2>
-  <form method="POST" action="/login" class="form-inline" style="flex-direction:column;gap:12px;" aria-label="Inloggningsformulär">
+  
+  {# Inloggningsformulär POST till /login för att autentisera användare #}
+  <form method="POST" action="/login" class="form-inline register-form" aria-label="Inloggningsformulär">
+    {# Inputfält för användarnamn #}
     <input id="username" class="input" type="text" name="username" placeholder="Användarnamn" required aria-required="true" aria-label="Användarnamn">
+    
+    {# Inputfält för lösenord dolt innehåll för säkerhet #}
     <input id="password" class="input" type="password" name="password" placeholder="Lösenord" required aria-required="true" aria-label="Lösenord">
-    <div style="display:flex;gap:8px;align-items:center;">
+    
+    {# Knappgrupp med inloggning och registrering #}
+    <div class="button-group">
+      {# Skickar formuläret och försöker logga in användaren #}
       <button type="submit" class="btn" aria-label="Logga in på ditt konto">Logga in</button>
+      {# Navigerar till registreringssidan för nya användare #}
       <a class="btn" href="{{ url_for('register') }}" aria-label="Gå till registreringssidan">Registrera</a>
     </div>
   </form>

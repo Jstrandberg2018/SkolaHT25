@@ -5,7 +5,6 @@
     --forth-color: #1B5E20;       
     --font-family: 'Arial, sans-serif';
 
-    /* Semantiska variabler för enklare användning */
     --bg: var(--secondary-color);  
     --text-color: #16331f;         
     --muted: #466c53;              
@@ -15,7 +14,6 @@
     --radius: 8px;                 
     --gap: 12px;                  
 
-    /* Navigations- och knappspecifika färger */
     --nav-bg: var(--primary-color);
     --btn-bg: var(--third-color);        
     --btn-hover: #4ea05a;               
@@ -283,6 +281,13 @@ button.btn {
     margin-top: 10px;
 }
 
+/* Knappgrupp i receptformulär */
+.form-recipe .button-group {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
 /* Placeholder-textstorlek */
 ::placeholder {
     font-size: 18px;
@@ -448,6 +453,29 @@ footer {
     align-items: center;
 }
 
+/* Registreringsformulär - vertikal layout */
+.register-form {
+    flex-direction: column;
+    gap: 12px;
+}
+
+.register-form label {
+    margin: 0;
+    font-weight: 600;
+}
+
+.register-form .checkbox-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.register-form .button-group {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
 /* Responsivitet för breda kort på små skärmar */
 @media (max-width: 720px) {
     .card-wide {
@@ -585,6 +613,11 @@ li[data-id] {
     gap: 10px;
     align-items: center;
     justify-content: flex-start;
+}
+
+/* Nollställ marginaler för formulär i recipe-actions */
+.recipe-actions form {
+    margin: 0;
 }
 
 /* Standardtext och metainformation i receptkort */

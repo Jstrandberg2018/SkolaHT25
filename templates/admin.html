@@ -5,11 +5,14 @@
 {% block content %}
 <h1>Administratörspanel</h1>
 
+{# Visar vilken användare som är inloggad #}
 <p>Inloggad som: <strong>{{ session.username }}</strong></p>
 
+{# Tabell som listar alla användare i systemet #}
 <table class="admin-table" aria-label="Administratörstabell med användare">
     <thead>
         <tr>
+            {# Kolumnrubriker för användarinformation #}
             <th scope="col">ID</th>
             <th scope="col">Användarnamn</th>
             <th scope="col">Admin?</th>
@@ -18,21 +21,32 @@
     </thead>
 
     <tbody>
+        {# Loopar igenom alla användare från databasen #}
         {% for user in users %}
         <tr aria-label="Användare {{ user.username }}">
+            {# Visar användarens unika ID #}
             <td>{{ user.id }}</td>
+            
+            {# Visar användarnamnet #}
             <td>{{ user.username }}</td>
+            
+            {# Visar om användaren har administratörsrättigheter #}
             <td>
                 {% if user.admin %}
                     <span aria-label="Är administratör">✔ Ja</span>
                 {% else %}
                     <span aria-label="Är inte administratör">✖ Nej</span>
                 {% endif %}
+            </td>
             
+            {# Kolumn med åtgärdsknappar för att redigera eller radera användare #}
             <td>
                 <div class="admin-actions">
+                    {# Länk till redigeringssidan för denna användare #}
                     <a class="btn" href="{{ url_for('admin_edit_user', user_id=user['id']) }}" aria-label="Ändra användare {{ user.username }}">Ändra</a>
-                    <form method="POST" action="{{ url_for('admin_delete_user', user_id=user['id']) }}" style="margin: 0;" aria-label="Formulär för att radera användare">
+                    
+                    {# Formulär för att radera användaren POST-anrop för säkerhet #}
+                    <form method="POST" action="{{ url_for('admin_delete_user', user_id=user['id']) }}" aria-label="Formulär för att radera användare">
                         <button class="btn" type="submit" aria-label="Radera användare {{ user.username }}">Radera</button>
                     </form>
                 </div>
