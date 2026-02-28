@@ -6,17 +6,25 @@
 <div class="card card-wide">
   <h2>Redigera recept</h2>
 
-  <form method="post" class="form-recipe" style="flex-direction:column;gap:12px;" aria-label="Formulär för att redigera recept"> 
+  {# Formulär för att uppdatera receptinformation POST-anrop till samma route #}
+  <form method="post" class="form-recipe" aria-label="Formulär för att redigera recept"> 
+    {# Inputfält för receptets titel förifyllt med nuvarande värde #}
     <input name="title" class="input" value="{{ recipe['title'] }}" required aria-required="true" aria-label="Receptets titel">
 
+    {# Formulärgrupp för ingredienser #}
     <div class="form-group">
+      {# Textarea för ingredienslista större fält för längre innehåll #}
       <textarea name="ingredients" class="input" value="{{ recipe['ingredients'] }}" required aria-required="true" aria-label="Lista över ingredienser"></textarea>
     </div>
     
+    {# Inputfält för antal kalorier förifyllt med nuvarande värde #}
     <input name="calories" class="input" value="{{ recipe['calories'] }}" required aria-required="true" aria-label="Antal kalorier">
 
-    <div style="display:flex;gap:8px;align-items:center;">
+    {# Knappgrupp med spara och avbryt-knappar #}
+    <div class="button-group">
+      {# Skickar formuläret och uppdaterar receptet i databasen #}
       <button type="submit" class="btn" aria-label="Spara ändringar på receptet">Spara</button>
+      {# Navigerar tillbaka till receptsidan utan att spara ändringar #}
       <a class="btn btn-link" href="{{ url_for('recipe') }}" aria-label="Avbryt och gå tillbaka">Avbryt</a>
     </div>
   </form>

@@ -6,26 +6,30 @@
     <h1>Välkommen till Recept-databasen!</h1>
     <p>Här kan du hitta och dela dina favorit recept.</p>
 
+    {# Formulär för att lägga till nytt recept i databasen POST till /recipe #}
     <form method="POST" action="{{ url_for('recipe') }}" aria-label="Formulär för att lägga till nytt recept" class="form-recipe">
+        {# Formulärgrupp för receptnamn #}
         <div class="form-group">
             <h2>Recept namn</h2>
+            {# Textinput för receptets namn (obligatoriskt fält) #}
             <input id="recipe" class="input" type="text" name="recipe" placeholder="Ange receptnamn" required aria-required="true" aria-label="Receptets namn">
         </div>
+        
+        {# Formulärgrupp för ingredienser #}
         <div class="form-group">
             <h2>Ingredienser</h2>
+            {# Textarea för att lista ingredienser, större fält för längre innehåll #}
             <textarea name="ingredients" id="ingredients" class="input" placeholder="Lägg in ingredienser" aria-label="Lista över ingredienser"></textarea>
         </div>
+        
+        {# Formulärgrupp för kalorier #}
         <div class="form-group">
             <h2>Kalorier</h2>
+            {# Textinput för antal kalorier, bör vara ett heltal #}
             <input name="calories" type="text" id="calories" class="input" placeholder="Ange kalorier (endast heltals siffror)" aria-label="Antal kalorier i receptet">
         </div>
+        
+        {# Knapp för att skicka formuläret och lägga till receptet i databasen #}
         <button type="submit" class="btn btn-add" aria-label="Lägg till nytt recept i databasen">Lägg till</button>
     </form>
-
 {% endblock %}
-
-<!--
-<input id="recipe" class="input" type="text" name="recipe" placeholder="Skapa recept" required aria-required="true">
-        <textarea name="ingredients" id="ingredients" class="input" placeholder="Lägg in ingredienser"></textarea>
-        <input name="calories" type="text" id="calories" class="input" placeholder="Kalorier">        
--->

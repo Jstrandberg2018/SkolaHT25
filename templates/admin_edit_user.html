@@ -1,19 +1,27 @@
 {% extends 'base.html' %}
 
-{% block title %}{% endblock %}
-
 {% block content %}
 <h2>Ändra användare</h2>
 <p>Lämna lösenord tomt för att behålla gamla!</p>
 
+{# Formulär för att uppdatera användaruppgifter POST-anrop till samma route #}
 <form method="post" class="form-inline" aria-label="Formulär för att redigera användare">
+      {# Användarnamn - förifyllt med nuvarande värde från databasen #}
       <input class="input" type="text" name="username" value="{{ user['username'] }}" required aria-label="Användarnamn" aria-required="true">
+      
+      {# Lösenordsfält lämnas tomt om användaren inte vill ändra lösenordet #}
       <input class="input" type="password" name="password" placeholder="Nytt lösenord" aria-label="Nytt lösenord (lämna tomt för att behålla)">
-      <label style="display:inline-flex;align-items:center;gap:8px;margin-left:8px;">
+      
+      {# Checkbox för att tilldela/ta bort administratörsrättigheter #}
+      <label class="checkbox-label">
           <input type="checkbox" name="admin" {% if user['admin'] %}checked{% endif %} aria-label="Ge användaren administratörsrättigheter"> Admin
       </label>
-      <div style="display:flex;gap:8px;margin-left:8px;align-items:center;">
+      
+      {# Knappgrupp med spara och avbryt-knappar #}
+      <div class="button-group">
+          {# Skickar formuläret och uppdaterar användaren i databasen #}
           <button type="submit" class="btn" aria-label="Spara ändringar på användare">Spara</button>
+          {# Navigerar tillbaka till administratörspanelen utan att spara ändringar #}
           <a class="btn btn-link" href="{{ url_for('admin_index') }}" aria-label="Avbryt och gå tillbaka till administratörspanelen">Avbryt</a>
       </div>
 </form>
